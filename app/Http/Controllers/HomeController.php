@@ -45,7 +45,10 @@ class HomeController extends Controller
         ->where('jenis_kategori', 'pengeluaran')
         ->get();
 
-        $transaksi = Transaksi::All()->sortByDesc('created_at');
+        $transaksi = Transaksi::where('user_id',$id)
+        ->orderBy('created_at','DESC')
+        ->get();
+        
 
 
         // $pemasukan_hari_ini = Transaksi::where('user_id',$id)

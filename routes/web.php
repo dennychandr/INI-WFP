@@ -43,3 +43,7 @@ Route::post('/konfigurasi/deletekategori/{id}', 'MoneyController@deletekategori'
 Route::post('/konfigurasi/ubahsaldo', 'MoneyController@updatesaldo');
 Route::post('/konfigurasi/deletesubkategori/{id}/{kid}', 'MoneyController@deletesubkategori');
 Route::post('/konfigurasi/deletetabungan/{id}', 'MoneyController@deletetabungan');
+Route::post('/tabunganberencana/updatenominaltabungan', 'MoneyController@updatenominaltabungan');
+Route::post('/konfigurasi/updatekategoripemasukan', 'MoneyController@updatekategoripemasukan');
+Route::post('/konfigurasi/updatekategoripengeluaran', 'MoneyController@updatekategoripengeluaran');
+Route::post('/konfigurasi/updatesubkategori', 'MoneyController@updatesubkategori');

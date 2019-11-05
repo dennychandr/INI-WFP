@@ -68,7 +68,7 @@
 
 
                   <button type="button" class="btn btn-primary float-right mr-3" data-toggle="modal" data-target="#updatenominaltabungan">
-                                Update
+                                Update Tabungan
                             </button>
 
                             <!-- Modal -->
@@ -95,6 +95,7 @@
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Nominal Sekarang</label>
                                     <input type="number" class="form-control" name="nominalsekarang" placeholder="Tidak perlu diisi apabila belum menabung">
+
                                 </div>
                                 <button type="submit" class="btn btn-success">Submit</button>
 
@@ -108,8 +109,8 @@
                   </div>
 
 <!-- <a class="btn btn-success float-right mr-3" href="{{url('/konfigurasi/subkategoripemasukan/')}}">Tambah Nominal Tabungan</a> -->
-<button type="button" class="btn btn-success float-right mr-3" data-toggle="modal" data-target="#tambahnominaltabungan">
-              Tambah Nominal Tabungan
+        <button type="button" class="btn btn-success float-right mr-3" data-tabunganid="{{$tb->id}}"  data-toggle="modal" data-target="#tambahnominaltabungan">
+              Menabung
           </button>
 
           <!-- Modal -->
@@ -123,11 +124,13 @@
                   </button>
               </div>
               <div class="modal-body">
-                <form method="POST" action="{{url('/tabunganberencana/tambahtabunganberencana')}}">
+                <form method="POST" action="{{url('/tabunganberencana/updatenominaltabungan')}}">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label >Tambah Nominal</label>
                         <input type="text" class="form-control" name="tambahnominal" placeholder="Tambah Nominal" required>
+                        <input type="hidden" name="tabunganid" id="tabungan_id" value="">
+                        
                     </div>
                     <button type="submit" class="btn btn-success">Submit</button>
                 </form>
@@ -170,15 +173,17 @@
 
 @section('js')
 
-<script type="text/javascript">
+<script>
 
   $('#tambahnominaltabungan').on('show.bs.modal', function (event) {
-    console.log('modal')
+    
   var button = $(event.relatedTarget) // Button that triggered the modal
-  var recipient = button.data('whatever') // Extract info from data-* attributes
+  var id = button.data('tabunganid') // Extract info from data-* attributes
+  
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
   var modal = $(this)
+  modal.find('.modal-body #tabungan_id').val(id);
   // modal.find('.modal-title').text('New message to ' + recipient)
   // modal.find('.modal-body input').val(recipient)
 })

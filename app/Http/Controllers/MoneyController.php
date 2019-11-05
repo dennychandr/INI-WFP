@@ -167,7 +167,7 @@ class MoneyController extends Controller
 
 
             $TransaksiPemasukan = new Transaksi;
-            $TransaksiPemasukan->keterangan= $request->get('uraian');
+            $TransaksiPemasukan->keterangan= $request->get('keterangan');
             $TransaksiPemasukan->nominal = $request->get('nominal');
             $TransaksiPemasukan->jenis_transaksi = 'pemasukan';
             $TransaksiPemasukan->user_id= $id;
@@ -178,7 +178,7 @@ class MoneyController extends Controller
         else
         {
             $TransaksiPemasukan = new Transaksi;
-            $TransaksiPemasukan->keterangan= $request->get('uraian');
+            $TransaksiPemasukan->keterangan= $request->get('keterangan');
             $TransaksiPemasukan->nominal = $request->get('nominal');
             $TransaksiPemasukan->jenis_transaksi = 'pemasukan';
             $TransaksiPemasukan->user_id= $id;
@@ -279,9 +279,15 @@ class MoneyController extends Controller
     {
         //
     }
-    public function updatetabungan(Request $request, $id)
+    public function updatenominaltabungan(Request $request)
     {
+        $idtabungan = $request->get('tabunganid');
+        $tabungan =  TabunganBerencana::find($idtabungan);
+
+        $tabungan->nominal_sekarang = $tabungan->nominal_sekarang + $request->get('tambahnominal');
+        $tabungan->save();
         
+        return redirect('tabunganberencana');
     }
 
     public function updatesaldo(Request $request)
@@ -291,6 +297,44 @@ class MoneyController extends Controller
         $user->saldo = $request->get('saldo');
         $user->save();
 
+        return redirect('konfigurasi');
+    }
+
+    public function updatekategoripemasukan(Request $request)
+    {
+
+
+        $idkategori = $request->get('idpemasukanhidden');
+        $kategoripemasukan =  Kategori::find($idkategori);
+
+        $kategoripemasukan->nama = $request->get('kategoripemasukan');
+        $kategoripemasukan->save();
+        
+        return redirect('konfigurasi');
+    }
+    public function updatesubkategori(Request $request)
+    {
+
+
+        $idkategori = $request->get('kategoriid');
+        $idsubkategori = $request->get('subid');
+        $subkategori =  Subkategori::find($idsubkategori);
+
+        $subkategori->nama = $request->get('subkategori');
+        $subkategori->save();
+        
+        return redirect('konfigurasi/subkategori/'.$idkategori);
+    }
+    public function updatekategoripengeluaran(Request $request)
+    {
+
+
+        $idsubkategori = $request->get('idpengeluaranhidden');
+        $kategoripemasukan =  Kategori::find($idkategori);
+
+        $kategoripemasukan->nama = $request->get('kategoripengeluaran');
+        $kategoripemasukan->save();
+        
         return redirect('konfigurasi');
     }
 
