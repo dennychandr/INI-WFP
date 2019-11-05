@@ -190,7 +190,7 @@
         <!-- /page content -->
 
         <!-- footer content -->
-        <footer>
+        <footer style="background-color: #F7F7F7">
           <div class="pull-right">
             Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
           </div>
