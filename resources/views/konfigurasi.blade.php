@@ -1,10 +1,11 @@
 
 @extends('adminlayout.app')
+@section('title','Konfigurasi')
 @section('content')
 <div class="container">
   <div>
     <div class="col-md-12">
-     <h1 class="display-4 mt-5 text-center">Atur Kategori Pemasukan dan Pengeluaran Anda</h1>
+     <h1 class="display-4 mt-3">Atur Kategori Pemasukan dan Pengeluaran Anda</h1>
     </div>
   </div>
  
@@ -140,7 +141,30 @@
 
   </div>
 </div>
+<div>
+  <div class="col-md-12 mt-3">
+    <h1>Atur Saldo Anda</h1>
+    <div class="col-md-6">
+      <form method="POST" action="{{ url('/konfigurasi/ubahsaldo') }}">
+            {{ csrf_field() }}
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Dalam rupiah</label>
+              <input type="number" class="form-control" id="kategori" name="saldo" value="{{$saldo}}" required> <br>
+              <button type="submit" class="btn btn-primary">Submit Kategori</button>
+
+            </div>
+
+          </form>
+    </div>
+
+
+  </div>
 </div>
+
+
+</div>
+
+
 
 
 
