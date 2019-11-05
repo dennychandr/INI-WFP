@@ -5,27 +5,9 @@
 <div class="container">
     <div>
         <div class="col-md-12">
-          
             <h1 class="display-4 mt-3 bold">Selamat Datang,{{Auth::user()->name}}</h1> <br>
-            <div class="tile_count">
-            <div class="col-md-4 col-sm-4  tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Saldo Anda</span>
-              <div class="count">Rp.{{number_format(Auth::User()->saldo)}}</div>
-              <span class="count_bottom"><i class="green">4% </i> From last Week</span>
-            </div>
-            <div class="col-md-4 col-sm-4  tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Saldo Anda</span>
-              <div class="count">Rp.{{number_format(Auth::User()->saldo)}}</div>
-              <span class="count_bottom"><i class="green">4% </i> From last Week</span>
-            </div>
-            <div class="col-md-4 col-sm-4  tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Saldo Anda</span>
-              <div class="count">Rp.{{number_format(Auth::User()->saldo)}}</div>
-              <span class="count_bottom"><i class="green">4% </i> From last Week</span>
-            </div>
-          </div>
-             <a class="btn btn-primary mb-3 mt-3" href="{{url('/transaksi/cetakpdf')}}">Cetak Laporan format PDF</a>
-               <a class="btn btn-success mb-3 mt-3" href="{{url('/transaksi/cetakexcel')}}">Cetak Laporan format Excel</a>
+             <a class="btn btn-primary mb-3" href="{{url('/transaksi/cetakpdf')}}">Cetak Laporan format PDF</a>
+               <a class="btn btn-success mb-3" href="{{url('/transaksi/cetakexcel')}}">Cetak Laporan format Excel</a>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#pemasukanmodal">
               Tambah Pemasukan
