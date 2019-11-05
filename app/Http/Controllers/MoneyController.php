@@ -229,26 +229,6 @@ class MoneyController extends Controller
     }
 
 
-    public function deletekategori($id)
-    {
-
-
-        // $Updatetransaksi =  Transaksi::where('kategori_id', $id)->first();
-        // $Updatetransaksi->kategori_id = null;
-        // $Updatetransaksi->subkategori_id = null;
-        // $Updatetransaksi->save();
-
-        $subkategori= Subkategori::where('kategori_id', $id);
-
-        $subkategori->delete();
-        $kategori = Kategori::find($id);
-
-        $kategori->delete();
-
-        return redirect('/konfigurasi');
-    }
-
-
     public function cetakpdf()
     {
         $id = Auth::user()->id;

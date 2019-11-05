@@ -38,5 +38,3 @@ Route::post('/konfigurasi/tambahsubkategori/{id}', 'MoneyController@storesubkate
 Route::post('/tabunganberencana/tambahtabunganberencana', 'MoneyController@storetabunganberencana');
 Route::post('/transaksi/tambahtransaksipemasukan', 'MoneyController@storetransaksipemasukan');
 Route::post('/transaksi/tambahtransaksipengeluaran', 'MoneyController@storetransaksipengeluaran');
-
-Route::post('/konfigurasi/deletekategori/{id}', 'MoneyController@deletekategori');

@@ -25,10 +25,7 @@
            <td>
           <a class="btn btn-success" href="{{url('/konfigurasi/subkategori/'.$kp->id)}}">Sub Kategori</a>
             <a class="btn btn-primary" href="{{url('/konfigurasi/updatepemasukan/'.$kp->id)}}">Update</a>
-            <form action="{{url('/konfigurasi/deletekategori/'.$kp->id)}}" method="post">
-              {{ csrf_field() }}
-              <button class="btn btn-danger" style="color: white">Delete</button>
-            </form>
+            <a class="btn btn-danger"  href="{{url('/konfigurasi/deletepemasukan/'.$kp->id)}}">Delete</a>
 
           </td>
         </tr>
@@ -91,11 +88,7 @@
           <td>
             <a class="btn btn-success" href="{{url('/konfigurasi/subkategori/'.$kp->id) }}">Sub Kategori</a>
             <a class="btn btn-primary" href="{{url('/konfigurasi/updatepengeluaran/'.$kp->id) }}">Update</a>
-            <form action="{{url('/konfigurasi/deletekategori/'.$kp->id)}}" method="post">
-              {{ csrf_field() }}
-              <button class="btn btn-danger" style="color: white">Delete</button>
-            </form>
-            
+            <a class="btn btn-danger"  href="{{url('/konfigurasi/deletepengeluaran/'.$kp->id) }}">Delete</a>
 
           </td>
         </tr>
