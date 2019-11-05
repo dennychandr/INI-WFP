@@ -40,3 +40,4 @@ Route::post('/transaksi/tambahtransaksipemasukan', 'MoneyController@storetransak
 Route::post('/transaksi/tambahtransaksipengeluaran', 'MoneyController@storetransaksipengeluaran');
 
 Route::post('/konfigurasi/deletekategori/{id}', 'MoneyController@deletekategori');
+Route::post('/konfigurasi/ubahsaldo', 'MoneyController@updatesaldo');

@@ -12,6 +12,7 @@ use PDF;
 use App\Exports\TransaksiExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
+use App\User;
 
 
 class MoneyController extends Controller
@@ -41,7 +42,9 @@ class MoneyController extends Controller
         ->where('jenis_kategori','pengeluaran')
         ->get();
 
-        return view('konfigurasi', compact('kategoripemasukan','kategoripengeluaran'));
+        $saldo = Auth::user()->saldo;
+
+        return view('konfigurasi', compact('kategoripemasukan','kategoripengeluaran', 'saldo'));
     }
 
 
@@ -215,6 +218,16 @@ class MoneyController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    public function updatesaldo(Request $request)
+    {
+        $id = Auth::user()->id;
+        $user =  User::find($id);
+        $user->saldo = $request->get('saldo');
+        $user->save();
+
+        return redirect('konfigurasi');
     }
 
     /**
