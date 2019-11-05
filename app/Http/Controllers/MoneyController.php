@@ -261,6 +261,16 @@ class MoneyController extends Controller
         return redirect('/konfigurasi');
     }
 
+    public function deletesubkategori($id , $kid)
+    {
+        $subkategori = Subkategori::find($id);
+        $subkategori->delete();
+
+        return redirect('/konfigurasi/subkategori/'.$kid);
+
+
+    }
+
 
     public function cetakpdf()
     {

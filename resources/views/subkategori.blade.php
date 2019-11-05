@@ -26,7 +26,10 @@
           <td>{{$sk->nama}}</td>
           <td>
             <a class="btn btn-primary" href="{{url('/konfigurasi/updatepemasukan/'.$sk->id)}}">Update</a>
-            <a class="btn btn-danger"  href="{{url('/konfigurasi/deletepemasukan/'.$sk->id)}}">Delete</a>
+            <form action="{{url('/konfigurasi/deletesubkategori/'.$sk->id.'/'.$kategori->id)}}" method="post">
+              {{ csrf_field() }}
+              <button class="btn btn-danger" style="color: white">Delete</button>
+            </form>
           </td>
         </tr>
 
