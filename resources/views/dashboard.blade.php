@@ -159,9 +159,9 @@
               <div class="card-body">
                 <h1 class="card-title text-dark">{{$t->created_at}}</h1>
                 @if($t->jenis_transaksi == "pemasukan")
-                <h1 class="card-title float-right" style="color: green">{{$t->nominal}}</h1>
+                <h1 class="card-title float-right" style="color: green">Rp. {{number_format($t->nominal)}}</h1>
                 @else
-                <h1 class="card-title float-right" style="color: red">{{$t->nominal}}</p>
+                <h1 class="card-title float-right" style="color: red">Rp. {{number_format($t->nominal)}}</p>
                 @endif
                 <p class="card-text"></p>
                 <h1 class="card-text float-left text-dark">{{$t->keterangan}}</h1>

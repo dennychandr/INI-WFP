@@ -15,7 +15,7 @@ class CreatePengeluaransTable extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('nominal');
+            $table->bigInteger('nominal');
             $table->string('keterangan')->nullable();
             $table->string('foto')->nullable();
             $table->string('jenis_transaksi');
