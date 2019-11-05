@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 use App\Kategori;
+use DB;
 
 class HomeController extends Controller
 {
@@ -70,6 +71,12 @@ class HomeController extends Controller
 
         $user = User::where('id', $id)
         ->get();
+
+        // $pemasukan = DB::select();
+
+
+
+
 
        
        foreach($user as $u)
