@@ -59,9 +59,14 @@
                 </div>
                 <p class="float-left">Rp {{number_format($tb->nominal_sekarang)}}</p>
                 <p class="float-right" >Rp {{number_format($tb->target)}}</p> <br>
-                   <a class="btn btn-danger float-right mr-3 "  href="{{url('/konfigurasi/deletepemasukan/')}}">Delete</a>
+                <form class="float-right" action="{{url('/konfigurasi/deletetabungan/'.$tb->id)}}" method="post">
+                      {{ csrf_field() }}
+                        <button class="btn btn-danger" style="color: white">Delete</button>
+                   </form>
+                   
                     <a class="btn btn-primary float-right mr-3" href="{{url('/konfigurasi/updatepemasukan/')}}">Update</a>
                      <a class="btn btn-success float-right mr-3" href="{{url('/konfigurasi/subkategoripemasukan/')}}">Tambah Nominal Tabungan</a>
+
                     
               </div>
                     

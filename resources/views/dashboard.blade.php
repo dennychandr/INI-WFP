@@ -63,7 +63,7 @@
 
                         </select>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="exampleFormControlSelect1">Sub Kategori</label>
                         <select class="form-control" id="exampleFormControlSelect1">
                             @foreach($kategoripemasukan as $kp)
@@ -71,7 +71,7 @@
                             @endforeach
 
                         </select>
-                    </div>
+                    </div> -->
                     <button type="submit" class="btn btn-success">Submit</button>
 
 
@@ -123,7 +123,7 @@
 
             </select>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
                         <label for="exampleFormControlSelect1">Sub Kategori</label>
                         <select name="kategori" class="form-control" id="exampleFormControlSelect1">
                             @foreach($kategoripemasukan as $kp)
@@ -131,7 +131,7 @@
                             @endforeach
 
                         </select>
-                    </div>
+                    </div> -->
         <button type="submit" class="btn btn-success">Submit</button>
 
 
@@ -154,15 +154,21 @@
               <option value="bulan">Bulan</option>
               <option value="tahun">Tahun</option>
         </select> <br> <br>
-         
+         @foreach($transaksi as $t)
             <div class="card text-black bg-light mb-3" style="max-width: 100%;">
               <div class="card-body">
-                <p class="card-title">Tanggal</p>
-                <p class="card-title float-right">Nominal</p>
-                <p class="card-text">Kategori</p>
-                <p class="card-text float-left">Keterangan</p>
+                <h1 class="card-title text-dark">{{$t->created_at}}</h1>
+                @if($t->jenis_transaksi == "pemasukan")
+                <h1 class="card-title float-right" style="color: green">{{$t->nominal}}</h1>
+                @else
+                <h1 class="card-title float-right" style="color: red">{{$t->nominal}}</p>
+                @endif
+                <p class="card-text"></p>
+                <h1 class="card-text float-left text-dark">{{$t->keterangan}}</h1>
             </div>
-</div>
+            </div>
+            @endforeach
+
 
 
     </div>

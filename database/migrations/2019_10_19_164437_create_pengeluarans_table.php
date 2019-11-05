@@ -19,7 +19,7 @@ class CreatePengeluaransTable extends Migration
             $table->string('keterangan')->nullable();
             $table->string('foto')->nullable();
             $table->string('jenis_transaksi');
-            $table->integer('kategori_id')->unsigned();
+            $table->integer('kategori_id')->unsigned()->nullable();
             $table->foreign('kategori_id')->references('id')->on('kategoris');
             $table->integer('subkategori_id')->unsigned()->nullable();
             $table->foreign('subkategori_id')->references('id')->on('subkategoris');

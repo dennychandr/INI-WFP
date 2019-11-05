@@ -22,7 +22,7 @@
       <tbody>
         @foreach($kategoripemasukan as $kp)
         <tr>
-          <td>{{$kp->nama}}</td>
+          <td><p class="text-lg">{{$kp->nama}}</p></td>
            <td>
           <a class="btn btn-success" href="{{url('/konfigurasi/subkategori/'.$kp->id)}}">Sub Kategori</a>
             <a class="btn btn-primary" href="{{url('/konfigurasi/updatepemasukan/'.$kp->id)}}">Update</a>
@@ -88,7 +88,7 @@
     <tbody>
       @foreach($kategoripengeluaran as $kp)
         <tr>
-          <td>{{$kp->nama}}</td>
+          <td><p class="text-md">{{$kp->nama}}</p></td>
           <td>
             <a class="btn btn-success" href="{{url('/konfigurasi/subkategori/'.$kp->id) }}">Sub Kategori</a>
             <a class="btn btn-primary" href="{{url('/konfigurasi/updatepengeluaran/'.$kp->id) }}">Update</a>

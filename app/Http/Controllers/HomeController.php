@@ -7,6 +7,7 @@ use Auth;
 use App\User;
 use App\Kategori;
 use DB;
+use App\Transaksi;
 
 class HomeController extends Controller
 {
@@ -42,6 +43,8 @@ class HomeController extends Controller
         $kategoripengeluaran = Kategori::where('user_id',$id)
         ->where('jenis_kategori', 'pengeluaran')
         ->get();
+
+        $transaksi = Transaksi::All()->sortByDesc('created_at');
 
 
 
@@ -90,7 +93,7 @@ class HomeController extends Controller
             }
             else
             {
-                return view('dashboard', compact('kategoripemasukan','kategoripengeluaran'));
+                return view('dashboard', compact('kategoripemasukan','kategoripengeluaran', 'transaksi'));
             }
        }  
     }

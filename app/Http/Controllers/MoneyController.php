@@ -155,26 +155,86 @@ class MoneyController extends Controller
     public function storetransaksipemasukan(Request $request)
     {
         $id = Auth::user()->id;
-            // menyimpan data file yang diupload ke variabel $file
-        $file = $request->file('file');
-        $nama = $file->getClientOriginalName();
-        $ekstensi = $file->getClientOriginalExtension();
-;     $target_upload = asset('images');
-        $nama_foto = $nama.".".$ekstensi;
-        $file->move($target_upload,$nama_foto);    
+        $saldo = Auth::user()->saldo;
 
-        $newTransaksi = new Transaksi;
-        $newTransaksi->nominal = $request->get('nominal');
-        $newTransaksi->keterangan = $request->get('keterangan');
-        $newTransaksi->foto = $nama_foto;
-        $newTransaksi->jenis_transaksi = "pemasukan";
-        $newTransaksi->user_id = $id;
-        $newTransaksi->kategori_id = $request->get('kategori') ;
+        if($request->hasFile('uploadfoto'))
+        {
+
+            $file = $request->file('uploadfoto');
+            $nama_file = $file->getClientOriginalName();
+            $target_directory = 'images';
+            $file->move($target_directory,$nama_file); 
+
+
+            $TransaksiPemasukan = new Transaksi;
+            $TransaksiPemasukan->keterangan= $request->get('uraian');
+            $TransaksiPemasukan->nominal = $request->get('nominal');
+            $TransaksiPemasukan->jenis_transaksi = 'pemasukan';
+            $TransaksiPemasukan->user_id= $id;
+            $TransaksiPemasukan->kategori_id = $request->get('kategori');
+            $TransaksiPemasukan->foto = $nama_file;
+            $TransaksiPemasukan->save();
+         }
+        else
+        {
+            $TransaksiPemasukan = new Transaksi;
+            $TransaksiPemasukan->keterangan= $request->get('uraian');
+            $TransaksiPemasukan->nominal = $request->get('nominal');
+            $TransaksiPemasukan->jenis_transaksi = 'pemasukan';
+            $TransaksiPemasukan->user_id= $id;
+            $TransaksiPemasukan->kategori_id = $request->get('kategori');
+            $TransaksiPemasukan->foto = null;
+            $TransaksiPemasukan->save();
+        }
+
+            $saldoskg = $saldo + $TransaksiPemasukan->nominal;
+            $saldoo = User::find($id);
+            $saldoo->saldo = $saldoskg;
+            $saldoo->save();
+
+            return redirect('dashboard');
     }
 
      public function storetransaksipengeluaran(Request $request)
     {
         $id = Auth::user()->id;
+        $saldo = Auth::user()->saldo;
+
+        if($request->hasFile('uploadfoto'))
+        {
+
+            $file = $request->file('uploadfoto');
+            $nama_file = $file->getClientOriginalName();
+            $target_directory = 'images';
+            $file->move($target_directory,$nama_file); 
+
+
+            $TransaksiPemasukan = new Transaksi;
+            $TransaksiPemasukan->keterangan= $request->get('keterangan');
+            $TransaksiPemasukan->nominal = $request->get('nominal');
+            $TransaksiPemasukan->jenis_transaksi = 'pemasukan';
+            $TransaksiPemasukan->user_id= $userid;
+            $TransaksiPemasukan->kategori_id = $request->get('kategori');
+            $TransaksiPemasukan->foto = $nama_file;
+            $TransaksiPemasukan->save();
+         }
+        else
+        {
+            $TransaksiPemasukan = new Transaksi;
+            $TransaksiPemasukan->keterangan= $request->get('keterangan');
+            $TransaksiPemasukan->nominal = $request->get('nominal');
+            $TransaksiPemasukan->jenis_transaksi = 'pengeluaran';
+            $TransaksiPemasukan->user_id= $id;
+            $TransaksiPemasukan->kategori_id = $request->get('kategori');
+            $TransaksiPemasukan->foto = null;
+            $TransaksiPemasukan->save();
+        }
+            $saldoskg = $saldo - $TransaksiPemasukan->nominal;
+            $saldoo = User::find($id);
+            $saldoo->saldo = $saldoskg;
+            $saldoo->save();
+
+            return redirect('dashboard');
     }
 
 
@@ -269,6 +329,14 @@ class MoneyController extends Controller
         return redirect('/konfigurasi/subkategori/'.$kid);
 
 
+    }
+
+    public function deletetabungan($id)
+    {
+        $tabungan = TabunganBerencana::find($id);
+        $tabungan->delete();
+
+        return redirect('tabunganberencana');
     }
 
 
