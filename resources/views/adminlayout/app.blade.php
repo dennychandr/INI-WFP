@@ -79,7 +79,7 @@
                   <li><a href="{{url('dashboard')}}"><i class="fa fa-home "></i> Dashboard </a>
                     
                   </li>
-                  <li><a href="#"><i class="fa fa-edit"></i> Laporan </a>
+                  <li><a href="{{url('laporan')}}"><i class="fa fa-edit"></i> Laporan </a>
                     <!-- <ul class="nav child_menu">
                       <li><a href="form.html">General Form</a></li>
                       <li><a href="form_advanced.html">Advanced Components</a></li>

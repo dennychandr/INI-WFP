@@ -64,8 +64,77 @@
                         <button class="btn btn-danger" style="color: white">Delete</button>
                    </form>
                    
-                    <a class="btn btn-primary float-right mr-3" href="{{url('/konfigurasi/updatepemasukan/')}}">Update</a>
-                     <a class="btn btn-success float-right mr-3" href="{{url('/konfigurasi/subkategoripemasukan/')}}">Tambah Nominal Tabungan</a>
+                    <!-- <a class="btn btn-primary float-right mr-3" href="{{url('/konfigurasi/updatepemasukan/')}}">Update</a> -->
+
+
+                  <button type="button" class="btn btn-primary float-right mr-3" data-toggle="modal" data-target="#updatenominaltabungan">
+                                Update
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="updatenominaltabungan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Update Data Tabungan</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                  <form method="POST" action="{{url('/tabunganberencana/tambahtabunganberencana')}}">
+                                      {{ csrf_field() }}
+                                      <div class="form-group">
+                                    <label >Nama Target</label>
+                                    <input type="text" class="form-control" name="namatarget" placeholder="Nama Tabungan" required>
+                                </div>
+                                <div class="form-group">
+                                    <label >Target Tabungan</label>
+                                    <input type="number" class="form-control" name="targettabungan" placeholder="Nominal Target Tabungan" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Nominal Sekarang</label>
+                                    <input type="number" class="form-control" name="nominalsekarang" placeholder="Tidak perlu diisi apabila belum menabung">
+                                </div>
+                                <button type="submit" class="btn btn-success">Submit</button>
+
+
+                                  </form>
+
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+
+<!-- <a class="btn btn-success float-right mr-3" href="{{url('/konfigurasi/subkategoripemasukan/')}}">Tambah Nominal Tabungan</a> -->
+<button type="button" class="btn btn-success float-right mr-3" data-toggle="modal" data-target="#tambahnominaltabungan">
+              Tambah Nominal Tabungan
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="tambahnominaltabungan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tambah Nominal Tabungan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                <form method="POST" action="{{url('/tabunganberencana/tambahtabunganberencana')}}">
+                    {{ csrf_field() }}
+                    <div class="form-group">
+                        <label >Tambah Nominal</label>
+                        <input type="text" class="form-control" name="tambahnominal" placeholder="Tambah Nominal" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
+                </div>
+              </div>
+          </div>                   
 
                     
               </div>
@@ -98,4 +167,31 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 @endsection
+
+@section('js')
+
+<script type="text/javascript">
+
+  $('#tambahnominaltabungan').on('show.bs.modal', function (event) {
+    console.log('modal')
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  // modal.find('.modal-title').text('New message to ' + recipient)
+  // modal.find('.modal-body input').val(recipient)
+})
+
+
+</script>
+
+
+
+
+
+
+
+@endsection
+
 

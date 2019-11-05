@@ -212,8 +212,8 @@ class MoneyController extends Controller
             $TransaksiPemasukan = new Transaksi;
             $TransaksiPemasukan->keterangan= $request->get('keterangan');
             $TransaksiPemasukan->nominal = $request->get('nominal');
-            $TransaksiPemasukan->jenis_transaksi = 'pemasukan';
-            $TransaksiPemasukan->user_id= $userid;
+            $TransaksiPemasukan->jenis_transaksi = 'pengeluaran';
+            $TransaksiPemasukan->user_id= $id;
             $TransaksiPemasukan->kategori_id = $request->get('kategori');
             $TransaksiPemasukan->foto = $nama_file;
             $TransaksiPemasukan->save();
@@ -278,6 +278,10 @@ class MoneyController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+    public function updatetabungan(Request $request, $id)
+    {
+        
     }
 
     public function updatesaldo(Request $request)

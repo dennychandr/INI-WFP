@@ -8,6 +8,7 @@ use App\User;
 use App\Kategori;
 use DB;
 use App\Transaksi;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -47,6 +48,17 @@ class HomeController extends Controller
         $transaksi = Transaksi::All()->sortByDesc('created_at');
 
 
+        // $pemasukan_hari_ini = Transaksi::where('user_id',$id)
+        // ->where('jenis_transaksi', 'pemasukan')->get();
+        // // ->where('created_at', '=', date('now'))->get();
+        // // ->select(DB::raw("SUM(nominal) as pemasukan"))->get();
+        // dd($pemasukan_hari_ini);
+
+        // $pengeluaran_hari_ini = Transaksi::where('user_id',$id)
+        // ->where('jenis_transaksi', '=', 'pengeluaran')
+        // ->where('created_at', '=', date('now'))
+        // ->select(DB::raw("SUM(nominal) as pengeluaran"))->get();
+
 
         // foreach($kategoripemasukan as $kpemasukan)
         // {
@@ -59,6 +71,29 @@ class HomeController extends Controller
         //     $kategori_id = $kpengeluaran->id;
         //     array_push($kid,$kategori_id);
         // }
+
+        
+       
+        
+
+        
+
+
+        $pemasukan_hari_ini = DB::table('transaksis')
+            ->where('user_id', '=', $id)
+            ->whereDate('created_at', '=', Carbon::now('Asia/Bangkok')->toDateString())
+            ->where('jenis_transaksi', '=' , 'pemasukan')
+            ->sum('nominal');
+            
+
+         $pengeluaran_hari_ini = DB::table('transaksis')
+        ->where('user_id', '=', $id)
+        ->whereDate('created_at', '=', Carbon::now('Asia/Bangkok')->toDateString())
+        ->where('jenis_transaksi', '=' , 'pengeluaran')
+        ->sum('nominal');
+
+
+            
 
 
 
@@ -93,7 +128,7 @@ class HomeController extends Controller
             }
             else
             {
-                return view('dashboard', compact('kategoripemasukan','kategoripengeluaran', 'transaksi'));
+                return view('dashboard', compact('kategoripemasukan','kategoripengeluaran', 'transaksi','pemasukan_hari_ini', 'pengeluaran_hari_ini'));
             }
        }  
     }

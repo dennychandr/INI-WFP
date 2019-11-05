@@ -14,11 +14,11 @@
             </div>
             <div class="col-md-4 col-sm-4  tile_stats_count">
               <span class="count_top"><i class="fa fa-money"></i> Pemasukan anda hari ini</span>
-              <div class="count">Rp.{{number_format(Auth::User()->saldo)}}</div>
+              <div class="count">Rp.{{number_format($pemasukan_hari_ini)}}</div>
             </div>
             <div class="col-md-4 col-sm-4  tile_stats_count">
               <span class="count_top"><i class="fa fa-money"></i> Pengeluaran anda hari ini</span>
-              <div class="count">Rp.{{number_format(Auth::User()->saldo)}}</div>
+              <div class="count">Rp.{{number_format($pengeluaran_hari_ini)}}</div>
             </div>
           </div>
              <a class="btn btn-primary mb-3 mt-3" href="{{url('/transaksi/cetakpdf')}}">Cetak Laporan format PDF</a>
@@ -165,6 +165,15 @@
                 @endif
                 <p class="card-text"></p>
                 <h1 class="card-text float-left text-dark">{{$t->keterangan}}</h1>
+                @if($t->foto != null)
+<img src="{{asset('images/'.$t->foto)}}" style="width: 100px; height: 100px;">
+
+                @endif
+                
+
+
+
+                
             </div>
             </div>
             @endforeach
