@@ -231,7 +231,7 @@
             <div class="form-group">
               <label for="exampleFormControlInput1">Dalam rupiah</label>
               <input type="number" class="form-control" id="kategori" name="saldo" value="{{$saldo}}" required> <br>
-              <button type="submit" class="btn btn-primary">Submit Kategori</button>
+              <button type="submit" class="btn btn-primary">Ubah Saldo</button>
 
             </div>
 
