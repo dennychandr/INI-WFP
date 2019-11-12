@@ -1,5 +1,6 @@
 @extends('adminlayout.app')
 
+@section('title', 'Dashboard')
 @section('content')
 
 <div class="container">

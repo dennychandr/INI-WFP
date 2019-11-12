@@ -46,8 +46,11 @@ class HomeController extends Controller
         ->get();
 
         $transaksi = Transaksi::where('user_id',$id)
+        ->whereMonth('created_at',Carbon::now('Asia/Bangkok')->month)
         ->orderBy('created_at','DESC')
         ->get();
+
+
         
 
 

@@ -13,6 +13,7 @@ use App\Exports\TransaksiExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use App\User;
+use DB;
 
 
 class MoneyController extends Controller
@@ -24,6 +25,37 @@ class MoneyController extends Controller
      */
     public function index()
     {
+
+
+
+    }
+
+    public function laporanpengeluaranpemasukan()
+    {
+
+        $data = DB::table('transaksis')
+        ->select(
+            DB::raw('jenis_transaksi as jenis'),
+            DB::raw('sum(nominal) as nominal'))
+        ->groupBy('jenis_transaksi')
+        ->get();
+
+
+        $array[] = ['Jenis','Nominal'];
+
+        foreach($data as $key => $value)
+        {
+            $array[++$key] = [$value->jenis, intval($value->nominal)];
+        }
+
+        // dd($array);
+
+
+       return view('laporankeuangan')->with('chart', json_encode($array));
+
+
+
+
 
 
 
@@ -322,6 +354,20 @@ class MoneyController extends Controller
 
         
          
+        
+        return redirect('tabunganberencana');
+    }
+
+    public function updatetabungan(Request $request)
+    {
+
+
+        $idtabungan = $request->get('tabungan_id');
+        $tabunganberencana =  TabunganBerencana::find($idtabungan);
+
+        $tabunganberencana->nama = $request->get('namatarget');
+        $tabunganberencana->target = $request->get('targettabungan');
+        $tabunganberencana->save();
         
         return redirect('tabunganberencana');
     }

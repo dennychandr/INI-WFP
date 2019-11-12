@@ -47,7 +47,7 @@
           <form method="POST" action="{{ url('/konfigurasi/updatekategoripemasukan') }}">
             {{ csrf_field() }}
             <div class="form-group">
-              <label for="exampleFormControlInput1">Tambah Kategori Pengeluaran</label>
+              <label for="exampleFormControlInput1">Tambah Kategori Pemasukan</label>
               <input type="text" class="form-control" id="kategoripemasukan" name="kategoripemasukan" placeholder="Uang saku dari mama" required> <br>
               <input type="hidden" name="idpemasukanhidden" id="idpemasukanhidden" value="">
               <button type="submit" class="btn btn-primary">Submit Kategori</button>

@@ -22,7 +22,7 @@ Route::get('/dashboard', 'HomeController@index');
 
 Route::get('/konfigurasi', 'MoneyController@config')->name('konfigurasi');
 Route::get('/konfigurasi/subkategori/{id}', 'MoneyController@subkategori');
-Route::get('/laporan', 'MoneyController@laporan');
+Route::get('/laporan', 'MoneyController@laporanpengeluaranpemasukan');
 Route::get('/tabunganberencana', 'MoneyController@tabunganberencana');
 
 
@@ -44,6 +44,7 @@ Route::post('/konfigurasi/ubahsaldo', 'MoneyController@updatesaldo');
 Route::post('/konfigurasi/deletesubkategori/{id}/{kid}', 'MoneyController@deletesubkategori');
 Route::post('/konfigurasi/deletetabungan/{id}', 'MoneyController@deletetabungan');
 Route::post('/tabunganberencana/updatenominaltabungan', 'MoneyController@updatenominaltabungan');
+Route::post('/tabunganberencana/updatetabungan', 'MoneyController@updatetabungan');
 Route::post('/konfigurasi/updatekategoripemasukan', 'MoneyController@updatekategoripemasukan');
 Route::post('/konfigurasi/updatekategoripengeluaran', 'MoneyController@updatekategoripengeluaran');
 Route::post('/konfigurasi/updatesubkategori', 'MoneyController@updatesubkategori');

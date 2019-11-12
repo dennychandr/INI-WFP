@@ -1,7 +1,7 @@
 
 @extends('adminlayout.app')
 @section('content')
-
+@section('title', 'Tabungan Berencana')
 
 <div class="container">
 
@@ -76,7 +76,7 @@
                     <!-- <a class="btn btn-primary float-right mr-3" href="{{url('/konfigurasi/updatepemasukan/')}}">Update</a> -->
 
 
-                  <button type="button" class="btn btn-primary float-right mr-3" data-toggle="modal" data-target="#updatenominaltabungan">
+                  <button type="button" class="btn btn-primary float-right mr-3" data-updatetabungan="{{$tb->id}}" data-toggle="modal" data-target="#updatenominaltabungan" data-nama="{{$tb->nama}}" data-targett="{{$tb->target}}">
                                 Update Tabungan
                             </button>
 
@@ -91,16 +91,17 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                  <form method="POST" action="{{url('/tabunganberencana/tambahtabunganberencana')}}">
+                                  <form method="POST" action="{{url('/tabunganberencana/updatetabungan')}}">
                                       {{ csrf_field() }}
                                       <div class="form-group">
                                     <label >Nama Target</label>
-                                    <input type="text" class="form-control" name="namatarget" placeholder="Nama Tabungan" required>
+                                    <input type="text" class="form-control" id ="namatarget"name="namatarget" placeholder="Nama Tabungan" required>
                                 </div>
                                 <div class="form-group">
                                     <label >Target Tabungan</label>
-                                    <input type="number" class="form-control" name="targettabungan" placeholder="Nominal Target Tabungan" required>
+                                    <input type="number" class="form-control" id="targettabungan"name="targettabungan" placeholder="Nominal Target Tabungan" required>
                                 </div>
+                                    <input type="hidden" name="tabungan_id" id="tabungan_id" value="">
                                 <button type="submit" class="btn btn-success">Submit</button>
 
 
@@ -201,6 +202,29 @@ $('#notification').delay(timeout).fadeOut(300);
 </script>
 
 
+
+<script>
+
+  $('#updatenominaltabungan').on('show.bs.modal', function (event) {
+    
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var id = button.data('updatetabungan') // Extract info from data-* attributes
+  var nama = button.data('nama')
+  var target = button.data('targett')
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-body #tabungan_id').val(id);
+  modal.find('.modal-body #namatarget').val(nama);
+  modal.find('.modal-body #targettabungan').val(target);
+
+  
+  // modal.find('.modal-title').text('New message to ' + recipient)
+  // modal.find('.modal-body input').val(recipient)
+})
+
+
+</script>
 
 
 
