@@ -145,7 +145,6 @@ class MoneyController extends Controller
         $newTabunganBerencana = new TabunganBerencana;
         $newTabunganBerencana->nama= $request->get('namatarget');
         $newTabunganBerencana->target= $request->get('targettabungan');
-        $newTabunganBerencana->nominal_sekarang= $request->get('nominalsekarang');
         $newTabunganBerencana->user_id = $id;
         $newTabunganBerencana->save();
 
@@ -283,9 +282,46 @@ class MoneyController extends Controller
     {
         $idtabungan = $request->get('tabunganid');
         $tabungan =  TabunganBerencana::find($idtabungan);
+        $id = Auth::user()->id;
+        $saldo = Auth::user()->saldo;
+        $checker = $tabungan->nominal_sekarang + $request->get('tambahnominal');
 
-        $tabungan->nominal_sekarang = $tabungan->nominal_sekarang + $request->get('tambahnominal');
-        $tabungan->save();
+        if($saldo >= $request->get('tambahnominal') && $checker < $tabungan->target)
+        {
+                 $tabungan->nominal_sekarang = $tabungan->nominal_sekarang + $request->get('tambahnominal');
+                $tabungan->save();   
+
+                $TransaksiPengeluaran = new Transaksi;
+                    $TransaksiPengeluaran->keterangan= "Menabung ".$tabungan->nama;
+                    $TransaksiPengeluaran->nominal = $request->get('tambahnominal');
+                    $TransaksiPengeluaran->jenis_transaksi = 'pengeluaran';
+                    $TransaksiPengeluaran->user_id= $id;
+                    $TransaksiPengeluaran->foto = null;
+                    $TransaksiPengeluaran->save();
+
+                    $saldoskg = $saldo - $TransaksiPengeluaran->nominal;
+                    $saldoo = User::find($id);
+                    $saldoo->saldo = $saldoskg;
+                    $saldoo->save();
+
+                    session()->flash('berhasil', 'Anda berhasil menambah nominal tabungan! Ayo nabung lagi!');
+
+
+        }
+        else if($checker > $tabungan->target)
+        {
+            session()->flash('gagal', 'Anda menabung lebih besar dari target!');
+        }
+        else
+        {
+             session()->flash('gagal', 'Saldo anda tidak mencukupi untuk menabung!');
+        }
+
+        
+
+
+        
+         
         
         return redirect('tabunganberencana');
     }

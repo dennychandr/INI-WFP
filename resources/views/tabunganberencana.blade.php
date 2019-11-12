@@ -4,8 +4,21 @@
 
 
 <div class="container">
-    <div >
+
+
         <div class="col-md-12">
+
+    <div >
+       @if(session()->has('berhasil'))
+<div id="notification" class="alert alert-success" role="alert">
+  {{ session('berhasil') }}
+</div>
+@elseif(session()->has('gagal'))
+<div id="notification" class="alert alert-danger" role="alert">
+  {{ session('gagal') }}
+</div>
+  
+@endif
             <h1 class="display-4 mt-3 text-center">Daftar Tabungan Anda</h1> <br>
             <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#tabunganberencana">
               Tambah Tabungan Baru
@@ -31,10 +44,6 @@
                     <div class="form-group">
                         <label >Target Tabungan</label>
                         <input type="number" class="form-control" name="targettabungan" placeholder="Nominal Target Tabungan" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect1">Nominal Sekarang</label>
-                        <input type="number" class="form-control" name="nominalsekarang" placeholder="Tidak perlu diisi apabila belum menabung">
                     </div>
                     <button type="submit" class="btn btn-success">Submit</button>
 
@@ -92,11 +101,6 @@
                                     <label >Target Tabungan</label>
                                     <input type="number" class="form-control" name="targettabungan" placeholder="Nominal Target Tabungan" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Nominal Sekarang</label>
-                                    <input type="number" class="form-control" name="nominalsekarang" placeholder="Tidak perlu diisi apabila belum menabung">
-
-                                </div>
                                 <button type="submit" class="btn btn-success">Submit</button>
 
 
@@ -128,7 +132,7 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label >Tambah Nominal</label>
-                        <input type="text" class="form-control" name="tambahnominal" placeholder="Tambah Nominal" required>
+                        <input type="number" class="form-control" name="tambahnominal" placeholder="Tambah Nominal" required>
                         <input type="hidden" name="tabunganid" id="tabungan_id" value="">
                         
                     </div>
@@ -168,6 +172,7 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 @endsection
 
@@ -188,6 +193,10 @@
   // modal.find('.modal-body input').val(recipient)
 })
 
+
+ var timeout = 3000;
+
+$('#notification').delay(timeout).fadeOut(300);
 
 </script>
 
