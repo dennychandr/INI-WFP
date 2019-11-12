@@ -30,13 +30,15 @@ class MoneyController extends Controller
 
     }
 
-    public function laporanpengeluaranpemasukan()
+    public function laporanpengeluaranpemasukan(Request $request)
     {
-
+        $id = Auth::user()->id;
         $data = DB::table('transaksis')
         ->select(
             DB::raw('jenis_transaksi as jenis'),
             DB::raw('sum(nominal) as nominal'))
+        ->whereBetween('created_at',[$request->start_date,$request->end_date])
+        ->where('user_id',$id)
         ->groupBy('jenis_transaksi')
         ->get();
 
@@ -52,10 +54,6 @@ class MoneyController extends Controller
 
 
        return view('laporankeuangan')->with('chart', json_encode($array));
-
-
-
-
 
 
 

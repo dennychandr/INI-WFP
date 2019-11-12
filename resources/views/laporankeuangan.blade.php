@@ -5,8 +5,19 @@
 <div class="container">
 	<div>
 		<div class="col-md-12">
+
+			
 			<div id="piechart" style="width: 750px; height: 750px;"></div>
+
 		</div>
+
+	</div>
+	<div>
+			<form action="{{url('laporan')}}" method="get">
+				<input type="date" name="start_date">
+			<input type="date" name="end_date">
+			<input type="submit" name="">
+			</form>
 	</div>	
 </div>
 
