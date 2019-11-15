@@ -81,16 +81,13 @@
                   <li><a href="{{url('dashboard')}}"><i class="fa fa-home "></i> Dashboard </a>
                     
                   </li>
-                  <li><a href="{{url('laporan')}}"><i class="fa fa-edit"></i> Laporan </a>
-                    <!-- <ul class="nav child_menu">
-                      <li><a href="form.html">General Form</a></li>
-                      <li><a href="form_advanced.html">Advanced Components</a></li>
-                      <li><a href="form_validation.html">Form Validation</a></li>
-                      <li><a href="form_wizards.html">Form Wizard</a></li>
-                      <li><a href="form_upload.html">Form Upload</a></li>
-                      <li><a href="form_buttons.html">Form Buttons</a></li>
-                    </ul> -->
-                  </li>
+                  <li><a><i class="fa fa-edit"></i> Laporan </a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('laporanpengeluaranpemasukan')}}">Laporan Rasio Pemasukan dan Pengeluaran</a></li>
+                      <li><a href="{{url('laporantrendpemasukan')}}">Laporan Trend Pemasukan</a></li>
+                      <li><a href="{{url('laporantrendpengeluaran')}}">Laporan Trend Pengeluaran</a></li>
+                    </ul>
+                  
                   <li><a href="{{url('tabunganberencana')}}"><i class="fa fa-desktop"></i> Tabungan Berencana</a>
                   </li>
                   <li><a href="{{url('konfigurasi')}}"><i class="fa fa-bar-chart-o"></i> Konfigurasi </a>

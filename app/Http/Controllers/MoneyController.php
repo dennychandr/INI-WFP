@@ -53,7 +53,7 @@ class MoneyController extends Controller
         // dd($array);
 
 
-       return view('laporankeuangan')->with('chart', json_encode($array));
+       return view('laporanpemasukanpengeluaran')->with('chart', json_encode($array));
 
 
 
@@ -63,18 +63,36 @@ class MoneyController extends Controller
     {
 
         $id = Auth::user()->id;
-        $data = DB::table('transaksis')
+        $data = DB::table('transaksis as t')
+        ->join('kategoris as k', 'k.id', '=', 't.kategori_id')
+        ->select(
+            DB::raw('k.nama as kategori'),
+            DB::raw('sum(t.nominal) as nominal'))
+        ->whereBetween('t.created_at',[$request->start_date,$request->end_date])
+        ->where('t.user_id',$id)
+        ->where('k.user_id', $id)
+        ->where('t.jenis_transaksi', 'pemasukan')
+        ->groupBy('kategori')
+        ->get();
+
+
+        $datanull = DB::table('transaksis')
         ->select(
             DB::raw('kategori_id as kategori'),
             DB::raw('sum(nominal) as nominal'))
         ->whereBetween('created_at',[$request->start_date,$request->end_date])
         ->where('user_id',$id)
+        ->where('kategori_id', '=', null)
         ->where('jenis_transaksi', 'pemasukan')
         ->groupBy('kategori')
-        ->get();
+        ->get(); 
+
+      
 
 
         $array[] = ['Kategori','Nominal'];
+
+        $key = 0;
 
         foreach($data as $key => $value)
         {
@@ -83,9 +101,73 @@ class MoneyController extends Controller
 
         // dd($array);
 
+        
 
-       return view('laporantrendpemasukan')->with('chart', json_encode($array))
+        foreach($datanull as $value)
+        {
+            $array[++$key] = ["Other", intval($value->nominal)];
+        }
 
+        
+
+
+       return view('laporantrendpemasukan')->with('chart', json_encode($array));
+
+    }
+
+
+    public function laporantrendpengeluaran(Request $request)
+    {
+        $id = Auth::user()->id;
+        $data = DB::table('transaksis as t')
+        ->join('kategoris as k', 'k.id', '=', 't.kategori_id')
+        ->select(
+            DB::raw('k.nama as kategori'),
+            DB::raw('sum(t.nominal) as nominal'))
+        ->whereBetween('t.created_at',[$request->start_date,$request->end_date])
+        ->where('t.user_id',$id)
+        ->where('k.user_id', $id)
+        ->where('t.jenis_transaksi', 'pengeluaran')
+        ->groupBy('kategori')
+        ->get();
+
+
+        $datanull = DB::table('transaksis')
+        ->select(
+            DB::raw('kategori_id as kategori'),
+            DB::raw('sum(nominal) as nominal'))
+        ->whereBetween('created_at',[$request->start_date,$request->end_date])
+        ->where('user_id',$id)
+        ->where('kategori_id', '=', null)
+        ->where('jenis_transaksi', 'pengeluaran')
+        ->groupBy('kategori')
+        ->get();
+
+      
+
+
+        $array[] = ['Kategori','Nominal'];
+
+        $key = 0;
+
+        foreach($data as $key => $value)
+        {
+            $array[++$key] = [$value->kategori, intval($value->nominal)];
+        }
+
+        // dd($array);
+
+        
+
+        foreach($datanull as $value)
+        {
+            $array[++$key] = ["Other", intval($value->nominal)];
+        }
+
+        
+
+
+       return view('laporantrendpengeluaran')->with('chart', json_encode($array));
     }
 
 

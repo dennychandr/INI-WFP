@@ -24,6 +24,7 @@ Route::get('/konfigurasi', 'MoneyController@config')->name('konfigurasi');
 Route::get('/konfigurasi/subkategori/{id}', 'MoneyController@subkategori');
 Route::get('/laporanpengeluaranpemasukan', 'MoneyController@laporanpengeluaranpemasukan');
 Route::get('/laporantrendpemasukan', 'MoneyController@laporantrendpemasukan');
+Route::get('/laporantrendpengeluaran', 'MoneyController@laporantrendpengeluaran');
 Route::get('/tabunganberencana', 'MoneyController@tabunganberencana');
 
 

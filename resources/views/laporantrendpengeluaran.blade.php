@@ -1,5 +1,5 @@
 @extends('adminlayout.app')
-@section('title','Laporan Trend Pemasukan')
+@section('title','Laporan Trend Pengeluaran')
 @section('content')
 
 <div class="container">
@@ -13,7 +13,7 @@
 
 	</div>
 	<div>
-			<form action="{{url('laporantrendpemasukan')}}" method="get">
+			<form action="{{url('laporantrendpengeluaran')}}" method="get">
 				<input type="date" name="start_date">
 			<input type="date" name="end_date">
 			<input type="submit" name="">
@@ -50,7 +50,7 @@
 
         console.log(data)
         var options = {
-          title: 'Trend Pemasukan'
+          title: 'Trend Pengeluaran'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));

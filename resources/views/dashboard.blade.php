@@ -57,14 +57,14 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Kategori</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
+                        <select class="form-control" id="exampleFormControlSelect1" name="kategori">
                             @foreach($kategoripemasukan as $kp)
-                            <option>{{$kp->nama}}</option>
+                            <option value="{{$kp->id}}">{{$kp->nama}}</option>
                             @endforeach
 
                         </select>
                     </div>
-                    <!-- <div class="form-group">
+                   <!--  <div class="form-group">
                         <label for="exampleFormControlSelect1">Sub Kategori</label>
                         <select class="form-control" id="exampleFormControlSelect1">
                             @foreach($kategoripemasukan as $kp)
@@ -117,9 +117,9 @@
         </div>
         <div class="form-group">
             <label for="exampleFormControlSelect1">Kategori</label>
-            <select class="form-control" id="exampleFormControlSelect1">
+            <select class="form-control" id="exampleFormControlSelect1" name="kategori">
                 @foreach($kategoripengeluaran as $kp)
-                            <option>{{$kp->nama}}</option>
+                            <option value="{{$kp->id}}">{{$kp->nama}}</option>
                             @endforeach
 
             </select>
