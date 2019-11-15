@@ -1,5 +1,5 @@
 @extends('adminlayout.app')
-@section('title','Laporan')
+@section('title','Laporan Trend Pemasukan')
 @section('content')
 
 <div class="container">
@@ -13,7 +13,7 @@
 
 	</div>
 	<div>
-			<form action="{{url('laporan')}}" method="get">
+			<form action="{{url('laporantrendpemasukan')}}" method="get">
 				<input type="date" name="start_date">
 			<input type="date" name="end_date">
 			<input type="submit" name="">

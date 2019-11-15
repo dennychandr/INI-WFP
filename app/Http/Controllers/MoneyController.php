@@ -59,6 +59,35 @@ class MoneyController extends Controller
 
     }
 
+    public function laporantrendpemasukan(Request $request)
+    {
+
+        $id = Auth::user()->id;
+        $data = DB::table('transaksis')
+        ->select(
+            DB::raw('kategori_id as kategori'),
+            DB::raw('sum(nominal) as nominal'))
+        ->whereBetween('created_at',[$request->start_date,$request->end_date])
+        ->where('user_id',$id)
+        ->where('jenis_transaksi', 'pemasukan')
+        ->groupBy('kategori')
+        ->get();
+
+
+        $array[] = ['Kategori','Nominal'];
+
+        foreach($data as $key => $value)
+        {
+            $array[++$key] = [$value->kategori, intval($value->nominal)];
+        }
+
+        // dd($array);
+
+
+       return view('laporantrendpemasukan')->with('chart', json_encode($array))
+
+    }
+
 
     public function config()
     {
