@@ -19,6 +19,9 @@
 			<input type="submit" name="">
 			</form>
 	</div>	
+  <div>
+     
+  </div>
 </div>
 
 
@@ -57,7 +60,12 @@
 
         chart.draw(data, options);
       }
+
+      
+
     </script>
+
+
 
 @endsection
 
