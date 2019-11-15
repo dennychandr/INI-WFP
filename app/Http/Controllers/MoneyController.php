@@ -105,7 +105,7 @@ class MoneyController extends Controller
 
         foreach($datanull as $value)
         {
-            $array[++$key] = ["Other", intval($value->nominal)];
+            $array[++$key] = ["Kategori Lain", intval($value->nominal)];
         }
 
         
@@ -161,7 +161,7 @@ class MoneyController extends Controller
 
         foreach($datanull as $value)
         {
-            $array[++$key] = ["Other", intval($value->nominal)];
+            $array[++$key] = ["Kategori Lain", intval($value->nominal)];
         }
 
         
