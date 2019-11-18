@@ -13,7 +13,7 @@
 
 	</div>
 	<div>
-			<form action="{{url('laporanpemasukanpengeluaran')}}" method="get">
+			<form action="{{url('laporanpengeluaranpemasukan')}}" method="get">
 				<input type="date" name="start_date">
 			<input type="date" name="end_date">
 			<input type="submit" name="">

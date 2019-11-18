@@ -47,7 +47,7 @@ class MoneyController extends Controller
 
         foreach($data as $key => $value)
         {
-            $array[++$key] = [$value->jenis, intval($value->nominal)];
+            $array[++$key] = [strtoupper($value->jenis), intval($value->nominal)];
         }
 
         // dd($array);
