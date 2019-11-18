@@ -151,10 +151,29 @@
     <div class="col-md-12">
         <h1 class="display-4 mt-2 bold">Daftar Transaksi</h1>
         <h3 class="display-5 mt-2">Lihat berdasarkan</h3>
-        <select>
-              <option value="bulan">Bulan</option>
-              <option value="tahun">Tahun</option>
-        </select> <br> <br>
+        <form method="POST" enctype="multipart/form-data" action="{{url('transaksi/tambahtransaksipengeluaran')}}">
+        {{ csrf_field() }}
+        Bulan : <select name="bulan" >
+                            <option selected value="1">Januari</option>
+                            <option value="2">Februari</option>
+                            <option value="3">Maret</option>
+                            <option value="4">April</option>
+                            <option value="5">Mei</option>
+                            <option value="6">Juni</option>
+                            <option value="7">Juli</option>
+                            <option value="8">Agustus</option>
+                            <option value="9">September</option>
+                            <option value="10">Oktober</option>
+                            <option value="11">November</option>
+                            <option value="12">Desember</option>
+                        </select>
+                        Tahun : <input type="text" size="4" maxlength="4" value="2019">
+         <br> <br>
+                        Filter bulan & tahun &nbsp;<input type="button" value="Terapkan">
+                        <br><br>
+                        Filter tahun saja &nbsp;<input type="button" value="Terapkan">
+         <br> <br>
+       </form>
          @foreach($transaksi as $t)
             <div class="card text-black bg-light mb-3" style="max-width: 100%;">
               <div class="card-body">

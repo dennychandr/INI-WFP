@@ -191,7 +191,7 @@
         <!-- footer content -->
         <footer style="background-color: #F7F7F7">
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            DUIT.IN © 2019</a>
           </div>
           <div class="clearfix"></div>
         </footer>
