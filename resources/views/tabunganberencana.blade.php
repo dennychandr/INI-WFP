@@ -10,12 +10,18 @@
 
     <div >
        @if(session()->has('berhasil'))
-<div id="notification" class="alert alert-success" role="alert">
-  {{ session('berhasil') }}
+<div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button> 
+        <strong>  {{ session('berhasil') }}</strong>
+      </div>
+
 </div>
 @elseif(session()->has('gagal'))
-<div id="notification" class="alert alert-danger" role="alert">
-  {{ session('gagal') }}
+<div class="alert alert-danger alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button> 
+        <strong>{{ session('gagal') }}</strong>
+      </div>
+  
 </div>
   
 @endif
