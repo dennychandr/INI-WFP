@@ -97,26 +97,66 @@
                   </li>
 
 
-                  <li role="presentation" class="nav-item dropdown open">
+                  <!-- <li role="presentation" class="nav-item dropdown open">
                   <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                    
+                    <i class="">2</i>
                     <i class="fa fa-envelope-o"></i>
-                    <i class="badge bg-green">2</i>
+
                     Notifikasi
                   </a>
                   <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
+
                     <li class="nav-item">
                       <a class="dropdown-item">
-                        <span>
-                          <span>Reminder</span>
-                          <span class="time">3 mins ago</span>
+                        <span class="message">
+                          Ayo menabung agar semua target mu bisa tercapai
                         </span>
                         <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                          <button class="btn btn-danger btn-small" >Hapus Reminder</button>
                         </span>
                       </a>
                     </li>
-                  </li>
+                     <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="message">
+                          Ayo menabung agar semua target mu bisa tercapai
+                        </span>
+                        <span class="message">
+                          <button class="btn btn-danger btn-small" >Hapus Reminder</button>
+                        </span>
+                      </a>
+                    </li>
+                     <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="message">
+                          Ayo menabung agar semua target mu bisa tercapai
+                        </span>
+                        <span class="message">
+                          <button class="btn btn-danger btn-small" >Hapus Reminder</button>
+                        </span>
+                      </a>
+                    </li>
+                     <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="message">
+                          Ayo menabung agar semua target mu bisa tercapai
+                        </span>
+                        <span class="message">
+                          <button class="btn btn-danger btn-small" >Hapus Reminder</button>
+                        </span>
+                      </a>
+                    </li>
+                     <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span class="message">
+                          Ayo menabung agar semua target mu bisa tercapai
+                        </span>
+                        <span class="message">
+                          <button class="btn btn-danger btn-small" >Hapus Reminder</button>
+                        </span>
+                      </a>
+                    </li>
+                  </li> -->
                   
                 </ul>
               </div>

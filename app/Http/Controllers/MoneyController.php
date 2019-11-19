@@ -427,7 +427,7 @@ class MoneyController extends Controller
         $saldo = Auth::user()->saldo;
         $checker = $tabungan->nominal_sekarang + $request->get('tambahnominal');
 
-        if($saldo >= $request->get('tambahnominal') && $checker < $tabungan->target)
+        if($saldo >= $request->get('tambahnominal') && $checker <= $tabungan->target)
         {
                  $tabungan->nominal_sekarang = $tabungan->nominal_sekarang + $request->get('tambahnominal');
                 $tabungan->save();   
