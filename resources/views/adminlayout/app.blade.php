@@ -54,6 +54,9 @@
               <div class="menu_section">
                 
                 <ul class="nav side-menu">
+
+
+
                   @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
@@ -91,6 +94,28 @@
                   <li><a href="{{url('tabunganberencana')}}"><i class="fa fa-desktop"></i> Tabungan Berencana</a>
                   </li>
                   <li><a href="{{url('konfigurasi')}}"><i class="fa fa-bar-chart-o"></i> Konfigurasi </a>
+                  </li>
+
+
+                  <li role="presentation" class="nav-item dropdown open">
+                  <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
+                    
+                    <i class="fa fa-envelope-o"></i>
+                    <i class="badge bg-green">2</i>
+                    Notifikasi
+                  </a>
+                  <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
+                    <li class="nav-item">
+                      <a class="dropdown-item">
+                        <span>
+                          <span>Reminder</span>
+                          <span class="time">3 mins ago</span>
+                        </span>
+                        <span class="message">
+                          Film festivals used to be do-or-die moments for movie makers. They were where...
+                        </span>
+                      </a>
+                    </li>
                   </li>
                   
                 </ul>
@@ -166,11 +191,12 @@
               <div class="nav toggle">
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
               </div>
-              <nav class="navbar navbar-expand-lg ">
-                <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        
-                    </ul>
+              <nav class="navbar navbar-nav">
+                <ul class="navbar-right">
+
+                  
+                </ul>
+
 
 
 
