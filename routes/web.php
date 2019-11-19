@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/dashboard', 'HomeController@index');
+Route::post('/dashboard/filter', 'HomeController@filterdate');
 
 
 Route::get('/konfigurasi', 'MoneyController@config')->name('konfigurasi');

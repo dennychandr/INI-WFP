@@ -22,6 +22,109 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+
+    public function filterdate(Request $request)
+    {
+        $id = Auth::user()->id;
+
+
+
+        $kategoripemasukan = Kategori::where('user_id',$id)
+       ->where('jenis_kategori', 'pemasukan')
+        ->get();
+
+        $kategoripengeluaran = Kategori::where('user_id',$id)
+        ->where('jenis_kategori', 'pengeluaran')
+        ->get();
+
+        $pemasukan_hari_ini = DB::table('transaksis')
+            ->where('user_id', '=', $id)
+            ->whereDate('created_at', '=', Carbon::now('Asia/Bangkok')->toDateString())
+            ->where('jenis_transaksi', '=' , 'pemasukan')
+            ->sum('nominal');
+            
+
+         $pengeluaran_hari_ini = DB::table('transaksis')
+        ->where('user_id', '=', $id)
+        ->whereDate('created_at', '=', Carbon::now('Asia/Bangkok')->toDateString())
+        ->where('jenis_transaksi', '=' , 'pengeluaran')
+        ->sum('nominal');
+
+        $bln;
+        if($request->get('bulan') == 1)
+        {
+            $bln = 'Januari';
+        }
+        else if($request->get('bulan') == 2)
+        {
+            $bln = 'Februari';
+        }
+        else if($request->get('bulan') == 3)
+        {
+            $bln = 'Maret';
+        }
+        else if($request->get('bulan') == 4)
+        {
+            $bln = 'April';
+        }
+        else if($request->get('bulan') == 5)
+        {
+            $bln = 'Mei';
+        }
+        else if($request->get('bulan') == 6)
+        {
+            $bln = 'Juni';
+        }
+        else if($request->get('bulan') == 7)
+        {
+            $bln = 'Juli';
+        }
+        else if($request->get('bulan') == 8)
+        {
+            $bln = 'Agustus';
+        }
+        else if($request->get('bulan') == 9)
+        {
+            $bln = 'September';
+        }
+        else if($request->get('bulan') == 10)
+        {
+            $bln = 'Oktober';
+        }
+        else if($request->get('bulan') == 11)
+        {
+            $bln = 'November';
+        }
+        else if($request->get('bulan') == 12)
+        {
+            $bln = 'Desember';
+        }
+
+
+        if($request->get('terapkan') == 'terapkan_bln_thn')
+        {
+            $transaksi = Transaksi::where('user_id',$id)
+            ->whereMonth('created_at',$request->get('bulan'))
+            ->whereYear('created_at',$request->get('tahun'))
+            ->orderBy('created_at','DESC')
+            ->get();
+            $string = 'Daftar Transaksi Bulan ' . $bln . ' Tahun ' . $request->get('tahun') . ' :';
+        }
+        else if ($request->get('terapkan') == 'terapkan_thn')
+        {
+            $transaksi = Transaksi::where('user_id',$id)
+            ->whereYear('created_at',$request->get('tahun'))
+            ->orderBy('created_at','DESC')
+            ->get();
+            $string = 'Daftar Transaksi Tahun ' . $request->get('tahun') . ' :';
+        }
+
+    return view('dashboard', compact('kategoripemasukan','kategoripengeluaran', 'transaksi','pemasukan_hari_ini', 'pengeluaran_hari_ini','string'));
+        
+
+    }
+
+
     /**
      * Show the application dashboard.
      *
@@ -79,10 +182,6 @@ class HomeController extends Controller
         // }
 
         
-       
-        
-
-        
 
 
         $pemasukan_hari_ini = DB::table('transaksis')
@@ -101,10 +200,6 @@ class HomeController extends Controller
 
             
 
-
-
-
-
         // $subkategoripemasukan = Subkategori::where()
         // ->get();
 
@@ -120,7 +215,7 @@ class HomeController extends Controller
 
 
 
-
+        $string = 'Daftar Transaksi';
 
        
        foreach($user as $u)
@@ -134,7 +229,7 @@ class HomeController extends Controller
             }
             else
             {
-                return view('dashboard', compact('kategoripemasukan','kategoripengeluaran', 'transaksi','pemasukan_hari_ini', 'pengeluaran_hari_ini'));
+                return view('dashboard', compact('kategoripemasukan','kategoripengeluaran', 'transaksi','pemasukan_hari_ini', 'pengeluaran_hari_ini','string'));
             }
        }  
     }
