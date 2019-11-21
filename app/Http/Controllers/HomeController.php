@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 use App\Kategori;
+use App\Subkategori;
 use DB;
 use App\Transaksi;
 use Carbon\Carbon;
@@ -27,8 +28,6 @@ class HomeController extends Controller
     {
         $id = Auth::user()->id;
 
-
-
         $kategoripemasukan = Kategori::where('user_id',$id)
        ->where('jenis_kategori', 'pemasukan')
         ->get();
@@ -36,6 +35,31 @@ class HomeController extends Controller
         $kategoripengeluaran = Kategori::where('user_id',$id)
         ->where('jenis_kategori', 'pengeluaran')
         ->get();
+
+        $arr_sub_pem = [];
+        for ($i=0; $i < count($kategoripemasukan); $i++) { 
+            $subkatee = Subkategori::where('kategori_id',$kategoripemasukan[$i]->id)
+            ->get();
+            for ($j=0; $j <count($subkatee) ; $j++) { 
+                $count = count($arr_sub_pem);
+               $arr_sub_pem[$count][0] = $subkatee[$j]->nama;
+               $arr_sub_pem[$count][1] = $kategoripemasukan[$i]->nama;
+            }            
+        }
+
+
+
+
+        $arr_sub_peng = [];
+        for ($i=0; $i < count($kategoripengeluaran); $i++) { 
+            $subkate = Subkategori::where('kategori_id',$kategoripengeluaran[$i]->id)
+            ->get();
+            for ($j=0; $j <count($subkate) ; $j++) { 
+                $count = count($arr_sub_peng);
+               $arr_sub_peng[$count][0] = $subkate[$j]->nama;
+               $arr_sub_peng[$count][1] = $kategoripengeluaran[$i]->nama;
+            }            
+        }
 
         $pemasukan_hari_ini = DB::table('transaksis')
             ->where('user_id', '=', $id)
@@ -119,7 +143,7 @@ class HomeController extends Controller
             $string = 'Daftar Transaksi Tahun ' . $request->get('tahun') . ' :';
         }
 
-    return view('dashboard', compact('kategoripemasukan','kategoripengeluaran', 'transaksi','pemasukan_hari_ini', 'pengeluaran_hari_ini','string'));
+    return view('dashboard', compact('kategoripemasukan','kategoripengeluaran', 'transaksi','pemasukan_hari_ini', 'pengeluaran_hari_ini','string','arr_sub_peng','arr_sub_pem'));
         
 
     }
@@ -147,6 +171,32 @@ class HomeController extends Controller
         $kategoripengeluaran = Kategori::where('user_id',$id)
         ->where('jenis_kategori', 'pengeluaran')
         ->get();
+
+        $arr_sub_pem = [];
+        for ($i=0; $i < count($kategoripemasukan); $i++) { 
+            $subkatee = Subkategori::where('kategori_id',$kategoripemasukan[$i]->id)
+            ->get();
+            for ($j=0; $j <count($subkatee) ; $j++) { 
+                $count = count($arr_sub_pem);
+               $arr_sub_pem[$count][0] = $subkatee[$j]->nama;
+               $arr_sub_pem[$count][1] = $kategoripemasukan[$i]->nama;
+            }            
+        }
+
+
+
+
+        $arr_sub_peng = [];
+        for ($i=0; $i < count($kategoripengeluaran); $i++) { 
+            $subkate = Subkategori::where('kategori_id',$kategoripengeluaran[$i]->id)
+            ->get();
+            for ($j=0; $j <count($subkate) ; $j++) { 
+                $count = count($arr_sub_peng);
+               $arr_sub_peng[$count][0] = $subkate[$j]->nama;
+               $arr_sub_peng[$count][1] = $kategoripengeluaran[$i]->nama;
+            }            
+        }
+// dd($arr_sub_pem);
 
         $transaksi = Transaksi::where('user_id',$id)
         ->whereMonth('created_at',Carbon::now('Asia/Bangkok')->month)
@@ -229,7 +279,7 @@ class HomeController extends Controller
             }
             else
             {
-                return view('dashboard', compact('kategoripemasukan','kategoripengeluaran', 'transaksi','pemasukan_hari_ini', 'pengeluaran_hari_ini','string'));
+                return view('dashboard', compact('kategoripemasukan','kategoripengeluaran', 'transaksi','pemasukan_hari_ini', 'pengeluaran_hari_ini','string','arr_sub_peng','arr_sub_pem'));
             }
        }  
     }

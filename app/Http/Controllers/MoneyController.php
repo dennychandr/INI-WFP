@@ -521,8 +521,9 @@ class MoneyController extends Controller
 
 
         $idsubkategori = $request->get('idpengeluaranhidden');
-        $kategoripemasukan =  Kategori::find($idkategori);
+        $kategoripemasukan =  Kategori::find($idsubkategori);
 
+        // dd($kategoripemasukan);
         $kategoripemasukan->nama = $request->get('kategoripengeluaran');
         $kategoripemasukan->save();
         
