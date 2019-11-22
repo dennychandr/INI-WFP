@@ -51,3 +51,4 @@ Route::post('/tabunganberencana/updatetabungan', 'MoneyController@updatetabungan
 Route::post('/konfigurasi/updatekategoripemasukan', 'MoneyController@updatekategoripemasukan');
 Route::post('/konfigurasi/updatekategoripengeluaran', 'MoneyController@updatekategoripengeluaran');
 Route::post('/konfigurasi/updatesubkategori', 'MoneyController@updatesubkategori');
+Route::post('/konfigurasi/reminder', 'MoneyController@addreminder');

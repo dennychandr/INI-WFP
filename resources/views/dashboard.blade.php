@@ -6,6 +6,16 @@
 <div class="container">
     <div>
         <div class="col-md-12">
+             <div>
+       @if(session()->has('menabung'))
+<div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button> 
+        <strong>  {{ session('menabung') }}</strong>
+      </div>
+      @endif
+
+</div>
+
           
             <h1 class="display-4 mt-3 bold">Selamat Datang,{{Auth::user()->name}}</h1> <br>
             <div class="tile_count">

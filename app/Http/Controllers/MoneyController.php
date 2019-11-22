@@ -183,9 +183,12 @@ class MoneyController extends Controller
         ->where('jenis_kategori','pengeluaran')
         ->get();
 
+
+        $reminder = User::find($id);
+
         $saldo = Auth::user()->saldo;
 
-        return view('konfigurasi', compact('kategoripemasukan','kategoripengeluaran', 'saldo'));
+        return view('konfigurasi', compact('kategoripemasukan','kategoripengeluaran', 'saldo', 'reminder'));
     }
 
 
@@ -332,6 +335,15 @@ class MoneyController extends Controller
             $saldoo->saldo = $saldoskg;
             $saldoo->save();
 
+             $user = User::find($id);
+            $user->jumlahtransaksi = $user->jumlahtransaksi + 1;
+            $user->save();
+
+            if($user->jumlahtransaksi % $user->reminder == 0)
+            {
+                session()->flash('menabung', Auth::user()->pesanreminder);
+            }    
+
             return redirect('dashboard');
     }
 
@@ -374,7 +386,34 @@ class MoneyController extends Controller
             $saldoo->saldo = $saldoskg;
             $saldoo->save();
 
+             $user = User::find($id);
+            $user->jumlahtransaksi = $user->jumlahtransaksi + 1;
+            $user->save();
+
+        
+      
+
+            if($user->jumlahtransaksi % $user->reminder == 0)
+            {
+                session()->flash('menabung', Auth::user()->pesanreminder);
+            }    
+
             return redirect('dashboard');
+    }
+
+
+    public function addreminder(Request $request)
+    {
+         $id = Auth::user()->id;
+
+         $user = User::find($id);
+         $user->reminder = $request->get('reminder');
+         $user->jumlahtransaksi = 0;
+         $user->pesanreminder = $request->get('remindermessage');
+         $user->save();
+
+         return redirect('konfigurasi');
+
     }
 
 

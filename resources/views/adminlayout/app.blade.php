@@ -10,6 +10,8 @@
 
     <title>@yield('title')</title>
 
+    @yield('head')
+
     <!-- Bootstrap -->
     <link href="{{asset('adminlte/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Font Awesome -->

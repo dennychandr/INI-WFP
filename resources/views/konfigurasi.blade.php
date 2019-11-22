@@ -241,6 +241,27 @@
 
   </div>
 </div>
+<div class="col-md-12 mt-3">
+    <h1>Atur Reminder Tabungan Berencana</h1>
+    <div class="col-md-6">
+      <form method="POST" action="{{ url('/konfigurasi/reminder') }}">
+            {{ csrf_field() }}
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Buat pengingat untuk menabung tiap sejumlah kali transaksi</label>
+              <input type="number" class="form-control" placeholder="Jumlah Transaksi" name="reminder" value="{{$reminder->reminder}}"><br>
+               <label for="exampleFormControlInput1">Isikan Pesan Reminder Menabung</label>
+              <input type="text" class="form-control" placeholder="Isi Pesan" name="remindermessage" value="{{$reminder->pesanreminder}}"><br>
+
+              <button type="submit" class="btn btn-primary">Buat Reminder</button>
+
+            </div>
+
+          </form>
+    </div>
+
+
+  </div>
+</div>
 
 
 </div>
