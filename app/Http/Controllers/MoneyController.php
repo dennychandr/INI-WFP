@@ -300,6 +300,10 @@ class MoneyController extends Controller
         $id = Auth::user()->id;
         $saldo = Auth::user()->saldo;
 
+
+        $test = DB::table('subkategoris')
+                ->where('nama', '=', $request->get('kategori'))
+                ->get();
         if($request->hasFile('uploadfoto'))
         {
 
@@ -309,12 +313,22 @@ class MoneyController extends Controller
             $file->move($target_directory,$nama_file); 
 
 
+
             $TransaksiPemasukan = new Transaksi;
             $TransaksiPemasukan->keterangan= $request->get('keterangan');
             $TransaksiPemasukan->nominal = $request->get('nominal');
             $TransaksiPemasukan->jenis_transaksi = 'pemasukan';
             $TransaksiPemasukan->user_id= $id;
-            $TransaksiPemasukan->kategori_id = $request->get('kategori');
+            
+            if($test->isEmpty())
+            {
+                $TransaksiPemasukan->kategori_id = $request->get('kategori'); 
+            }
+            else
+            {
+                $TransaksiPemasukan->subkategori_id = $test[0]->id;
+                $TransaksiPemasukan->kategori_id = $test[0]->kategori_id;
+            }
             $TransaksiPemasukan->foto = $nama_file;
             $TransaksiPemasukan->save();
          }
@@ -325,8 +339,16 @@ class MoneyController extends Controller
             $TransaksiPemasukan->nominal = $request->get('nominal');
             $TransaksiPemasukan->jenis_transaksi = 'pemasukan';
             $TransaksiPemasukan->user_id= $id;
-            $TransaksiPemasukan->kategori_id = $request->get('kategori');
             $TransaksiPemasukan->foto = null;
+            if($test->isEmpty())
+            {
+                $TransaksiPemasukan->kategori_id = $request->get('kategori'); 
+            }
+            else
+            {
+                $TransaksiPemasukan->subkategori_id = $test[0]->id;
+                $TransaksiPemasukan->kategori_id = $test[0]->kategori_id;
+            }
             $TransaksiPemasukan->save();
         }
 
@@ -352,6 +374,10 @@ class MoneyController extends Controller
         $id = Auth::user()->id;
         $saldo = Auth::user()->saldo;
 
+        $test = DB::table('subkategoris')
+                ->where('nama', '=', $request->get('kategori'))
+                ->get();
+
         if($request->hasFile('uploadfoto'))
         {
 
@@ -366,7 +392,15 @@ class MoneyController extends Controller
             $TransaksiPemasukan->nominal = $request->get('nominal');
             $TransaksiPemasukan->jenis_transaksi = 'pengeluaran';
             $TransaksiPemasukan->user_id= $id;
-            $TransaksiPemasukan->kategori_id = $request->get('kategori');
+            if($test->isEmpty())
+            {
+                $TransaksiPemasukan->kategori_id = $request->get('kategori'); 
+            }
+            else
+            {
+                $TransaksiPemasukan->subkategori_id = $test[0]->id;
+                $TransaksiPemasukan->kategori_id = $test[0]->kategori_id;
+            }
             $TransaksiPemasukan->foto = $nama_file;
             $TransaksiPemasukan->save();
          }
@@ -377,7 +411,15 @@ class MoneyController extends Controller
             $TransaksiPemasukan->nominal = $request->get('nominal');
             $TransaksiPemasukan->jenis_transaksi = 'pengeluaran';
             $TransaksiPemasukan->user_id= $id;
-            $TransaksiPemasukan->kategori_id = $request->get('kategori');
+            if($test->isEmpty())
+            {
+                $TransaksiPemasukan->kategori_id = $request->get('kategori'); 
+            }
+            else
+            {
+                $TransaksiPemasukan->subkategori_id = $test[0]->id;
+                $TransaksiPemasukan->kategori_id = $test[0]->kategori_id;
+            }
             $TransaksiPemasukan->foto = null;
             $TransaksiPemasukan->save();
         }

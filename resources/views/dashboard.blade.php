@@ -75,7 +75,7 @@
                         <option value="{{$kp->id}}">{{$test}}</option>
                     @foreach($arr_sub_pem as $key => $arr)
                         @if($arr[1] == $test)
-                        <option value="{{$kp->id}}">{{$test}} - {{$arr[0]}}</option>
+                        <option value="{{$arr[0]}}">{{$test}} - {{$arr[0]}}</option>
                         @endif
                     @endforeach
                   @endforeach
