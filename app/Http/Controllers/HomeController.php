@@ -180,6 +180,8 @@ class HomeController extends Controller
                 $count = count($arr_sub_pem);
                $arr_sub_pem[$count][0] = $subkatee[$j]->nama;
                $arr_sub_pem[$count][1] = $kategoripemasukan[$i]->nama;
+                $arr_sub_pem[$count][2] = $subkatee[$j]->id;
+
             }            
         }
 
@@ -194,6 +196,7 @@ class HomeController extends Controller
                 $count = count($arr_sub_peng);
                $arr_sub_peng[$count][0] = $subkate[$j]->nama;
                $arr_sub_peng[$count][1] = $kategoripengeluaran[$i]->nama;
+               $arr_sub_peng[$count][2] = $subkate[$j]->id;
             }            
         }
 // dd($arr_sub_pem);

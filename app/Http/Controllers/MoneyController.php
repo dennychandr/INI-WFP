@@ -300,10 +300,17 @@ class MoneyController extends Controller
         $id = Auth::user()->id;
         $saldo = Auth::user()->saldo;
 
+        $kate = substr($request->get('kategori'),0,1);
+        $sub = substr($request->get('kategori'),2,1);
 
-        $test = DB::table('subkategoris')
-                ->where('nama', '=', $request->get('kategori'))
+
+        $dbsub = DB::table('subkategoris')
+                ->where('id', '=', $sub)
+                ->where('kategori_id','=',$kate)
                 ->get();
+
+
+
         if($request->hasFile('uploadfoto'))
         {
 
@@ -320,14 +327,14 @@ class MoneyController extends Controller
             $TransaksiPemasukan->jenis_transaksi = 'pemasukan';
             $TransaksiPemasukan->user_id= $id;
             
-            if($test->isEmpty())
+            if($dbsub->isEmpty())
             {
                 $TransaksiPemasukan->kategori_id = $request->get('kategori'); 
             }
             else
             {
-                $TransaksiPemasukan->subkategori_id = $test[0]->id;
-                $TransaksiPemasukan->kategori_id = $test[0]->kategori_id;
+                $TransaksiPemasukan->subkategori_id = $dbsub[0]->id;
+                $TransaksiPemasukan->kategori_id = $dbsub[0]->kategori_id;
             }
             $TransaksiPemasukan->foto = $nama_file;
             $TransaksiPemasukan->save();
@@ -340,14 +347,14 @@ class MoneyController extends Controller
             $TransaksiPemasukan->jenis_transaksi = 'pemasukan';
             $TransaksiPemasukan->user_id= $id;
             $TransaksiPemasukan->foto = null;
-            if($test->isEmpty())
+            if($dbsub->isEmpty())
             {
                 $TransaksiPemasukan->kategori_id = $request->get('kategori'); 
             }
             else
             {
-                $TransaksiPemasukan->subkategori_id = $test[0]->id;
-                $TransaksiPemasukan->kategori_id = $test[0]->kategori_id;
+                $TransaksiPemasukan->subkategori_id = $dbsub[0]->id;
+                $TransaksiPemasukan->kategori_id = $dbsub[0]->kategori_id;
             }
             $TransaksiPemasukan->save();
         }
@@ -374,9 +381,16 @@ class MoneyController extends Controller
         $id = Auth::user()->id;
         $saldo = Auth::user()->saldo;
 
-        $test = DB::table('subkategoris')
-                ->where('nama', '=', $request->get('kategori'))
+        $kate = substr($request->get('kategori'),0,1);
+        $sub = substr($request->get('kategori'),2,1);
+
+
+        $dbsub = DB::table('subkategoris')
+                ->where('id', '=', $sub)
+                ->where('kategori_id','=',$kate)
                 ->get();
+
+
 
         if($request->hasFile('uploadfoto'))
         {
@@ -392,14 +406,14 @@ class MoneyController extends Controller
             $TransaksiPemasukan->nominal = $request->get('nominal');
             $TransaksiPemasukan->jenis_transaksi = 'pengeluaran';
             $TransaksiPemasukan->user_id= $id;
-            if($test->isEmpty())
+            if($dbsub->isEmpty())
             {
                 $TransaksiPemasukan->kategori_id = $request->get('kategori'); 
             }
             else
             {
-                $TransaksiPemasukan->subkategori_id = $test[0]->id;
-                $TransaksiPemasukan->kategori_id = $test[0]->kategori_id;
+                $TransaksiPemasukan->subkategori_id = $dbsub[0]->id;
+                $TransaksiPemasukan->kategori_id = $dbsub[0]->kategori_id;
             }
             $TransaksiPemasukan->foto = $nama_file;
             $TransaksiPemasukan->save();
@@ -411,14 +425,14 @@ class MoneyController extends Controller
             $TransaksiPemasukan->nominal = $request->get('nominal');
             $TransaksiPemasukan->jenis_transaksi = 'pengeluaran';
             $TransaksiPemasukan->user_id= $id;
-            if($test->isEmpty())
+            if($dbsub->isEmpty())
             {
                 $TransaksiPemasukan->kategori_id = $request->get('kategori'); 
             }
             else
             {
-                $TransaksiPemasukan->subkategori_id = $test[0]->id;
-                $TransaksiPemasukan->kategori_id = $test[0]->kategori_id;
+                $TransaksiPemasukan->subkategori_id = $dbsub[0]->id;
+                $TransaksiPemasukan->kategori_id = $dbsub[0]->kategori_id;
             }
             $TransaksiPemasukan->foto = null;
             $TransaksiPemasukan->save();
