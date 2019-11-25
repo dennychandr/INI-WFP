@@ -37,6 +37,7 @@ class MoneyController extends Controller
         ->select(
             DB::raw('jenis_transaksi as jenis'),
             DB::raw('sum(nominal) as nominal'))
+
         ->whereBetween('created_at',[$request->start_date,$request->end_date])
         ->where('user_id',$id)
         ->groupBy('jenis_transaksi')
@@ -47,6 +48,7 @@ class MoneyController extends Controller
 
         foreach($data as $key => $value)
         {
+
             $array[++$key] = [strtoupper($value->jenis), intval($value->nominal)];
         }
 
@@ -63,7 +65,8 @@ class MoneyController extends Controller
     {
 
         $id = Auth::user()->id;
-        $data = DB::table('transaksis as t')
+
+        $datanosub = DB::table('transaksis as t')
         ->join('kategoris as k', 'k.id', '=', 't.kategori_id')
         ->select(
             DB::raw('k.nama as kategori'),
@@ -72,8 +75,29 @@ class MoneyController extends Controller
         ->where('t.user_id',$id)
         ->where('k.user_id', $id)
         ->where('t.jenis_transaksi', 'pemasukan')
+        ->where('t.subkategori_id','=',null)
         ->groupBy('kategori')
         ->get();
+
+        // dd($datanosub);
+
+        $data = DB::table('transaksis as t')
+        ->join('kategoris as k', 'k.id', '=', 't.kategori_id')
+        ->join('subkategoris as s', 's.id','=','t.subkategori_id')
+        ->select(
+            DB::raw('k.nama as kategori,s.nama as subkategori'),
+            DB::raw('sum(t.nominal) as nominal'))
+        ->whereBetween('t.created_at',[$request->start_date,$request->end_date])
+        ->where('t.user_id',$id)
+        ->where('k.user_id', $id)
+        ->where('t.jenis_transaksi', 'pemasukan')
+        ->groupBy('kategori','subkategori')
+        ->get();
+
+        // dd($data);
+
+
+        
 
 
         $datanull = DB::table('transaksis')
@@ -96,10 +120,11 @@ class MoneyController extends Controller
 
         foreach($data as $key => $value)
         {
-            $array[++$key] = [$value->kategori, intval($value->nominal)];
+            $subkat  = $value->kategori." - ".$value->subkategori;
+            $array[++$key] = [$subkat, intval($value->nominal)];
         }
 
-        // dd($array);
+        
 
         
 
@@ -107,6 +132,14 @@ class MoneyController extends Controller
         {
             $array[++$key] = ["Kategori Lain", intval($value->nominal)];
         }
+
+        foreach($datanosub as $value)
+        {
+            $array[++$key] = [$value->kategori, intval($value->nominal)];
+        }
+
+
+        // dd($array);
 
         
 
@@ -119,7 +152,9 @@ class MoneyController extends Controller
     public function laporantrendpengeluaran(Request $request)
     {
         $id = Auth::user()->id;
-        $data = DB::table('transaksis as t')
+
+
+            $datanosub = DB::table('transaksis as t')
         ->join('kategoris as k', 'k.id', '=', 't.kategori_id')
         ->select(
             DB::raw('k.nama as kategori'),
@@ -128,7 +163,22 @@ class MoneyController extends Controller
         ->where('t.user_id',$id)
         ->where('k.user_id', $id)
         ->where('t.jenis_transaksi', 'pengeluaran')
+        ->where('t.subkategori_id','=',null)
         ->groupBy('kategori')
+        ->get();
+
+
+        $data = DB::table('transaksis as t')
+        ->join('kategoris as k', 'k.id', '=', 't.kategori_id')
+         ->join('subkategoris as s', 's.id','=','t.subkategori_id')
+        ->select(
+            DB::raw('k.nama as kategori,s.nama as subkategori'),
+            DB::raw('sum(t.nominal) as nominal'))
+        ->whereBetween('t.created_at',[$request->start_date,$request->end_date])
+        ->where('t.user_id',$id)
+        ->where('k.user_id', $id)
+        ->where('t.jenis_transaksi', 'pengeluaran')
+        ->groupBy('kategori','subkategori')
         ->get();
 
 
@@ -152,7 +202,8 @@ class MoneyController extends Controller
 
         foreach($data as $key => $value)
         {
-            $array[++$key] = [$value->kategori, intval($value->nominal)];
+            $subkat  = $value->kategori." - ".$value->subkategori;
+            $array[++$key] = [$subkat, intval($value->nominal)];
         }
 
         // dd($array);
@@ -163,6 +214,12 @@ class MoneyController extends Controller
         {
             $array[++$key] = ["Kategori Lain", intval($value->nominal)];
         }
+
+          foreach($datanosub as $value)
+        {
+            $array[++$key] = [$value->kategori, intval($value->nominal)];
+        }
+
 
         
 
