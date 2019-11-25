@@ -227,9 +227,17 @@
             </div>
             @endforeach
 
+              <ul class="pagination">
+                {{$paginator->links()}}
+              </ul>
+             
+
+
+
 
 
     </div>
+
     
 </div>
 </div>

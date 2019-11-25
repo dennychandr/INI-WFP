@@ -143,7 +143,33 @@ class HomeController extends Controller
             $string = 'Daftar Transaksi Tahun ' . $request->get('tahun') . ' :';
         }
 
-    return view('dashboard', compact('kategoripemasukan','kategoripengeluaran', 'transaksi','pemasukan_hari_ini', 'pengeluaran_hari_ini','string','arr_sub_peng','arr_sub_pem'));
+         $totalcount = $transaksi->count();
+
+             $page = $request->input('page') ?:1;
+              if ($page) {
+                  $skip = 5 * ($page - 1);
+                  $transaksi = $transaksi->take(5+$skip)->slice($skip);
+
+                  // dd($laporan);
+              } else {
+                  $transaksi = $transaksi->take(5)->slice(0);
+              }
+
+        $parameters = $request->getQueryString();
+                $parameters = preg_replace('/&page(=[^&]*)?|^page(=[^&]*)?&?/','', $parameters);
+                $path = url('/') . '/dashboard?' . $parameters;
+
+                // dd($path);
+
+                $categories = $transaksi->toArray();
+
+                
+
+                $paginator = new \Illuminate\Pagination\LengthAwarePaginator($categories, $totalcount, 5, $page);
+
+                $paginator = $paginator->withPath($path);
+
+    return view('dashboard', compact('kategoripemasukan','kategoripengeluaran', 'transaksi','pemasukan_hari_ini', 'pengeluaran_hari_ini','string','arr_sub_peng','arr_sub_pem','paginator'));
         
 
     }
@@ -154,7 +180,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {  
 
     // $datapersen = [];
@@ -270,6 +296,33 @@ class HomeController extends Controller
 
         $string = 'Daftar Transaksi';
 
+         $totalcount = $transaksi->count();
+
+             $page = $request->input('page') ?:1;
+              if ($page) {
+                  $skip = 5 * ($page - 1);
+                  $transaksi = $transaksi->take(5+$skip)->slice($skip);
+
+                  // dd($laporan);
+              } else {
+                  $transaksi = $transaksi->take(5)->slice(0);
+              }
+
+
+        $parameters = $request->getQueryString();
+                $parameters = preg_replace('/&page(=[^&]*)?|^page(=[^&]*)?&?/','', $parameters);
+                $path = url('/') . '/dashboard?' . $parameters;
+
+                // dd($path);
+
+                $categories = $transaksi->toArray();
+
+                
+
+                $paginator = new \Illuminate\Pagination\LengthAwarePaginator($categories, $totalcount, 5, $page);
+
+                $paginator = $paginator->withPath($path);
+
        
        foreach($user as $u)
        {
@@ -282,7 +335,7 @@ class HomeController extends Controller
             }
             else
             {
-                return view('dashboard', compact('kategoripemasukan','kategoripengeluaran', 'transaksi','pemasukan_hari_ini', 'pengeluaran_hari_ini','string','arr_sub_peng','arr_sub_pem'));
+                return view('dashboard', compact('kategoripemasukan','kategoripengeluaran', 'transaksi','pemasukan_hari_ini', 'pengeluaran_hari_ini','string','arr_sub_peng','arr_sub_pem','paginator'));
             }
        }  
     }
