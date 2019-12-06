@@ -698,14 +698,25 @@ class MoneyController extends Controller
     {
 
 
-        // $Updatetransaksi =  Transaksi::where('kategori_id', $id)->first();
-        // $Updatetransaksi->kategori_id = null;
-        // $Updatetransaksi->subkategori_id = null;
-        // $Updatetransaksi->save();
+        $transaksi =  Transaksi::where('kategori_id', $id)->get();
 
+        if($transaksi->count() > 0)
+        {
+        	  foreach($transaksi as $t)
+        	{
+	        	$t->kategori_id = null;
+	        	$t->subkategori_id = null;
+	        	$t->save();
+        	}
+
+        }
+
+      
+       
         $subkategori= Subkategori::where('kategori_id', $id);
 
         $subkategori->delete();
+
         $kategori = Kategori::find($id);
 
         $kategori->delete();
@@ -715,6 +726,23 @@ class MoneyController extends Controller
 
     public function deletesubkategori($id , $kid)
     {
+
+
+        $transaksi =  Transaksi::where('subkategori_id', $id)->get();
+
+
+        if($transaksi->count() > 0)
+        {
+        	  foreach($transaksi as $t)
+        	{
+
+	        	$t->subkategori_id = null;
+	        	$t->save();
+	        	
+        	}
+
+        }
+
         $subkategori = Subkategori::find($id);
         $subkategori->delete();
 
