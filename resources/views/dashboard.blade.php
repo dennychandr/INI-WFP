@@ -151,15 +151,7 @@
             </select>
         </div>
  
-        <!-- <div class="form-group">
-                        <label for="exampleFormControlSelect1">Sub Kategori</label>
-                        <select name="kategori" class="form-control" id="exampleFormControlSelect1">
-                            @foreach($kategoripemasukan as $kp)
-                            <option value="{{$kp->id}}">{{$kp->nama}}</option>
-                            @endforeach
 
-                        </select>
-                    </div> -->
         <button type="submit" class="btn btn-success">Submit</button>
 
 
@@ -205,33 +197,93 @@
        </form>
          @foreach($transaksi as $t)
             <div class="card text-black bg-light mb-3" style="max-width: 100%;">
+              <div class="card-header">
+                @if($t->kategori == null)
+               <h1 class="card-text float-left text-dark">Tidak ada Kategori</h1>
+                @else
+                  <h1 class="card-text float-left text-dark">{{$t->kategori->nama}} - </h1>
+                @endif
+
+               @if($t->foto != null) 
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#ModalGambar" data-gambar="{{$t->foto}}">
+              Lihat Gambar
+            </button>
+
+             @endif
+                
+
+            <div class="modal fade" id="ModalGambar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5>Gambar Transaksi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <img src="" class="img-fluid" id="tempatgambar">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                @if($t->subkategori == null)
+            <h1 class="card-text float-left text-dark">Tidak ada Sub Kategori</h1>
+                @else
+                 <h1 class="card-text float-left text-dark"> {{$t->subkategori->nama}}</h1>
+                @endif
+               
+              </div>
               <div class="card-body">
-                <h1 class="card-title text-dark">{{$t->created_at}}</h1>
-                @if($t->jenis_transaksi == "pemasukan")
+                 <h1 class="card-text float-left text-dark">{{$t->keterangan}}</h1>
+                <h1 class="card-title text-dark float-right">{{date("Y-m-d", strtotime($t->created_at))}}</h1> <br><br>
+                
+                
+            </div>
+            <div class="card-footer">
+              
+
+                 @if($t->jenis_transaksi == "pemasukan")
                 <h1 class="card-title float-right" style="color: green">Rp. {{number_format($t->nominal)}}</h1>
                 @else
                 <h1 class="card-title float-right" style="color: red">Rp. {{number_format($t->nominal)}}</p>
                 @endif
-                <p class="card-text"></p>
-                <h1 class="card-text float-left text-dark">{{$t->keterangan}}</h1>
-                @if($t->foto != null)
-<img src="{{asset('images/'.$t->foto)}}" style="width: 100px; height: 100px;">
-
-                @endif
-                
-
-
-
-                
+              
             </div>
             </div>
             @endforeach
-
-              <ul class="pagination">
-                {{$paginator->links()}}
-              </ul>
-             
-
 
 
 
@@ -255,6 +307,27 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+@endsection
+
+@section('js')
+
+<script type="text/javascript">
+  
+  $('#ModalGambar').on('show.bs.modal', function (event) {
+    
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var namagambar = button.data('gambar') // Extract info from data-* attributes
+  
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-body #tempatgambar').attr("src","images/"+namagambar);
+})
+
+
+</script>
 
 
 @endsection

@@ -356,19 +356,20 @@ class MoneyController extends Controller
     {
         $id = Auth::user()->id;
         $saldo = Auth::user()->saldo;
+     
+       
+        	$explode = explode("-",$request->kategori);
+        	if(count($explode) > 1)
+        	{
+        		   $kate = (int)$explode[0];
+        		   $sub = (int)$explode[1];
 
-        $kate = substr($request->get('kategori'),0,1);
-        $sub = substr($request->get('kategori'),2,1);
-
-
-        $dbsub = DB::table('subkategoris')
+        		    $dbsub = DB::table('subkategoris')
                 ->where('id', '=', $sub)
                 ->where('kategori_id','=',$kate)
                 ->get();
 
-
-
-        if($request->hasFile('uploadfoto'))
+                if($request->hasFile('uploadfoto'))
         {
 
             $file = $request->file('uploadfoto');
@@ -404,6 +405,7 @@ class MoneyController extends Controller
             $TransaksiPemasukan->jenis_transaksi = 'pemasukan';
             $TransaksiPemasukan->user_id= $id;
             $TransaksiPemasukan->foto = null;
+
             if($dbsub->isEmpty())
             {
                 $TransaksiPemasukan->kategori_id = $request->get('kategori'); 
@@ -431,6 +433,97 @@ class MoneyController extends Controller
             }    
 
             return redirect('dashboard');
+
+
+
+        	}
+        	else
+        	{
+        			$kate = (int)$explode[0];
+        			$sub = 0;
+
+        			 $dbsub = DB::table('subkategoris')
+                ->where('id', '=', $sub)
+                ->where('kategori_id','=',$kate)
+                ->get();
+
+                if($request->hasFile('uploadfoto'))
+        {
+
+            $file = $request->file('uploadfoto');
+            $nama_file = $file->getClientOriginalName();
+            $target_directory = 'images';
+            $file->move($target_directory,$nama_file); 
+
+
+
+            $TransaksiPemasukan = new Transaksi;
+            $TransaksiPemasukan->keterangan= $request->get('keterangan');
+            $TransaksiPemasukan->nominal = $request->get('nominal');
+            $TransaksiPemasukan->jenis_transaksi = 'pemasukan';
+            $TransaksiPemasukan->user_id= $id;
+            
+            if($dbsub->isEmpty())
+            {
+                $TransaksiPemasukan->kategori_id = $request->get('kategori'); 
+            }
+            else
+            {
+                $TransaksiPemasukan->subkategori_id = $dbsub[0]->id;
+                $TransaksiPemasukan->kategori_id = $dbsub[0]->kategori_id;
+            }
+            $TransaksiPemasukan->foto = $nama_file;
+            $TransaksiPemasukan->save();
+         }
+        else
+        {
+            $TransaksiPemasukan = new Transaksi;
+            $TransaksiPemasukan->keterangan= $request->get('keterangan');
+            $TransaksiPemasukan->nominal = $request->get('nominal');
+            $TransaksiPemasukan->jenis_transaksi = 'pemasukan';
+            $TransaksiPemasukan->user_id= $id;
+            $TransaksiPemasukan->foto = null;
+
+            if($dbsub->isEmpty())
+            {
+                $TransaksiPemasukan->kategori_id = $request->get('kategori'); 
+            }
+            else
+            {
+                $TransaksiPemasukan->subkategori_id = $dbsub[0]->id;
+                $TransaksiPemasukan->kategori_id = $dbsub[0]->kategori_id;
+            }
+            $TransaksiPemasukan->save();
+        }
+
+            $saldoskg = $saldo + $TransaksiPemasukan->nominal;
+            $saldoo = User::find($id);
+            $saldoo->saldo = $saldoskg;
+            $saldoo->save();
+
+             $user = User::find($id);
+            $user->jumlahtransaksi = $user->jumlahtransaksi + 1;
+            $user->save();
+
+            if($user->jumlahtransaksi % $user->reminder == 0)
+            {
+                session()->flash('menabung', Auth::user()->pesanreminder);
+            }    
+
+            return redirect('dashboard');
+
+
+        	}
+
+        	
+
+
+
+
+
+
+
+        
     }
 
      public function storetransaksipengeluaran(Request $request)
@@ -438,18 +531,19 @@ class MoneyController extends Controller
         $id = Auth::user()->id;
         $saldo = Auth::user()->saldo;
 
-        $kate = substr($request->get('kategori'),0,1);
-        $sub = substr($request->get('kategori'),2,1);
+              
+        	$explode = explode("-",$request->kategori);
+        	if(count($explode) > 1)
+        	{
+        		   $kate = (int)$explode[0];
+        		   $sub = (int)$explode[1];
 
-
-        $dbsub = DB::table('subkategoris')
+        		    $dbsub = DB::table('subkategoris')
                 ->where('id', '=', $sub)
                 ->where('kategori_id','=',$kate)
                 ->get();
 
-
-
-        if($request->hasFile('uploadfoto'))
+                if($request->hasFile('uploadfoto'))
         {
 
             $file = $request->file('uploadfoto');
@@ -512,6 +606,91 @@ class MoneyController extends Controller
             }    
 
             return redirect('dashboard');
+            }
+            else
+            {
+            	 $kate = (int)$explode[0];
+        		   $sub = 0;
+
+        		    $dbsub = DB::table('subkategoris')
+                ->where('id', '=', $sub)
+                ->where('kategori_id','=',$kate)
+                ->get();
+
+                if($request->hasFile('uploadfoto'))
+        {
+
+            $file = $request->file('uploadfoto');
+            $nama_file = $file->getClientOriginalName();
+            $target_directory = 'images';
+            $file->move($target_directory,$nama_file); 
+
+
+            $TransaksiPemasukan = new Transaksi;
+            $TransaksiPemasukan->keterangan= $request->get('keterangan');
+            $TransaksiPemasukan->nominal = $request->get('nominal');
+            $TransaksiPemasukan->jenis_transaksi = 'pengeluaran';
+            $TransaksiPemasukan->user_id= $id;
+            if($dbsub->isEmpty())
+            {
+                $TransaksiPemasukan->kategori_id = $request->get('kategori'); 
+            }
+            else
+            {
+                $TransaksiPemasukan->subkategori_id = $dbsub[0]->id;
+                $TransaksiPemasukan->kategori_id = $dbsub[0]->kategori_id;
+            }
+            $TransaksiPemasukan->foto = $nama_file;
+            $TransaksiPemasukan->save();
+         }
+        else
+        {
+            $TransaksiPemasukan = new Transaksi;
+            $TransaksiPemasukan->keterangan= $request->get('keterangan');
+            $TransaksiPemasukan->nominal = $request->get('nominal');
+            $TransaksiPemasukan->jenis_transaksi = 'pengeluaran';
+            $TransaksiPemasukan->user_id= $id;
+            if($dbsub->isEmpty())
+            {
+                $TransaksiPemasukan->kategori_id = $request->get('kategori'); 
+            }
+            else
+            {
+                $TransaksiPemasukan->subkategori_id = $dbsub[0]->id;
+                $TransaksiPemasukan->kategori_id = $dbsub[0]->kategori_id;
+            }
+            $TransaksiPemasukan->foto = null;
+            $TransaksiPemasukan->save();
+        }
+            $saldoskg = $saldo - $TransaksiPemasukan->nominal;
+            $saldoo = User::find($id);
+            $saldoo->saldo = $saldoskg;
+            $saldoo->save();
+
+             $user = User::find($id);
+            $user->jumlahtransaksi = $user->jumlahtransaksi + 1;
+            $user->save();
+
+        
+      
+
+            if($user->jumlahtransaksi % $user->reminder == 0)
+            {
+                session()->flash('menabung', Auth::user()->pesanreminder);
+            }    
+
+            return redirect('dashboard');
+
+
+            }
+            
+
+
+       
+
+
+
+        
     }
 
 
