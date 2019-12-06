@@ -38,7 +38,7 @@ class MoneyController extends Controller
             DB::raw('jenis_transaksi as jenis'),
             DB::raw('sum(nominal) as nominal'))
 
-        ->whereBetween('created_at',[$request->start_date,$request->end_date])
+        ->whereBetween('created_at',[date("Y-m-d",strtotime($request->start_date)),date("Y-m-d", strtotime($request->end_date) - strtotime("now") + strtotime("+1 day"))])
         ->where('user_id',$id)
         ->groupBy('jenis_transaksi')
         ->get();
@@ -71,7 +71,7 @@ class MoneyController extends Controller
         ->select(
             DB::raw('k.nama as kategori'),
             DB::raw('sum(t.nominal) as nominal'))
-        ->whereBetween('t.created_at',[$request->start_date,$request->end_date])
+        ->whereBetween('t.created_at',[date("Y-m-d",strtotime($request->start_date)),date("Y-m-d", strtotime($request->end_date) - strtotime("now") + strtotime("+1 day"))])
         ->where('t.user_id',$id)
         ->where('k.user_id', $id)
         ->where('t.jenis_transaksi', 'pemasukan')
@@ -87,7 +87,7 @@ class MoneyController extends Controller
         ->select(
             DB::raw('k.nama as kategori,s.nama as subkategori'),
             DB::raw('sum(t.nominal) as nominal'))
-        ->whereBetween('t.created_at',[$request->start_date,$request->end_date])
+        ->whereBetween('t.created_at',[date("Y-m-d",strtotime($request->start_date)),date("Y-m-d", strtotime($request->end_date) - strtotime("now") + strtotime("+1 day"))])
         ->where('t.user_id',$id)
         ->where('k.user_id', $id)
         ->where('t.jenis_transaksi', 'pemasukan')
@@ -104,7 +104,7 @@ class MoneyController extends Controller
         ->select(
             DB::raw('kategori_id as kategori'),
             DB::raw('sum(nominal) as nominal'))
-        ->whereBetween('created_at',[$request->start_date,$request->end_date])
+        ->whereBetween('created_at',[date("Y-m-d",strtotime($request->start_date)),date("Y-m-d", strtotime($request->end_date) - strtotime("now") + strtotime("+1 day"))])
         ->where('user_id',$id)
         ->where('kategori_id', '=', null)
         ->where('jenis_transaksi', 'pemasukan')
@@ -159,7 +159,7 @@ class MoneyController extends Controller
         ->select(
             DB::raw('k.nama as kategori'),
             DB::raw('sum(t.nominal) as nominal'))
-        ->whereBetween('t.created_at',[$request->start_date,$request->end_date])
+        ->whereBetween('t.created_at',[date("Y-m-d",strtotime($request->start_date)),date("Y-m-d", strtotime($request->end_date) - strtotime("now") + strtotime("+1 day"))])
         ->where('t.user_id',$id)
         ->where('k.user_id', $id)
         ->where('t.jenis_transaksi', 'pengeluaran')
@@ -174,7 +174,7 @@ class MoneyController extends Controller
         ->select(
             DB::raw('k.nama as kategori,s.nama as subkategori'),
             DB::raw('sum(t.nominal) as nominal'))
-        ->whereBetween('t.created_at',[$request->start_date,$request->end_date])
+        ->whereBetween('t.created_at',[date("Y-m-d",strtotime($request->start_date)),date("Y-m-d", strtotime($request->end_date) - strtotime("now") + strtotime("+1 day"))])
         ->where('t.user_id',$id)
         ->where('k.user_id', $id)
         ->where('t.jenis_transaksi', 'pengeluaran')
@@ -186,7 +186,7 @@ class MoneyController extends Controller
         ->select(
             DB::raw('kategori_id as kategori'),
             DB::raw('sum(nominal) as nominal'))
-        ->whereBetween('created_at',[$request->start_date,$request->end_date])
+        ->whereBetween('created_at',[date("Y-m-d",strtotime($request->start_date)),date("Y-m-d", strtotime($request->end_date) - strtotime("now") + strtotime("+1 day"))])
         ->where('user_id',$id)
         ->where('kategori_id', '=', null)
         ->where('jenis_transaksi', 'pengeluaran')
