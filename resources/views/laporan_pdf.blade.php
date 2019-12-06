@@ -18,7 +18,6 @@
 	<div class="container">
 		<div class="row">
 			<p>User : {{Auth::user()->name}} </p>
-			<p>Bulan : </p> 
 		</div>
 	</div>
 
@@ -26,19 +25,31 @@
 		<thead>
 			<tr>
 				<th>Tanggal</th>
-				<th>Transaksi</th>
+				<th>Keterangan</th>
 				<th>Nominal</th>
 				<th>Kategori</th>
+				<th>Sub Kategori</th>
+				<th>Jenis Transaksi</th>
 			</tr>
 		</thead>
 		<tbody>
 			
-			@foreach($pemasukan as $p)
+			@foreach($transaksi as $t)
 			<tr>
-				<td>{{$p->created_at}}</td>
-				<td>{{$p->keterangan}}</td>
-				<td>Rp {{number_format($p->nominal)}}</td>
-				<td>{{$p->kategoripemasukan->nama}}</td>
+				<td>{{$t->created_at}}</td>
+				<td>{{$t->keterangan}}</td>
+				<td>Rp {{number_format($t->nominal)}}</td>
+				@if($t->kategori == null)
+				<td>Tanpa Kategori</td>
+				@else
+				<td>{{$t->kategori->nama}}</td>
+				@endif
+				@if($t->subkategori == null)
+				<td>Tanpa Sub Kategori</td>
+				@else
+				<td>{{$t->subkategori->nama}}</td>
+				@endif
+				<td>{{ucfirst($t->jenis_transaksi)}}</td>
 			</tr>
 			@endforeach
 		</tbody>

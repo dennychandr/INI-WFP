@@ -942,9 +942,9 @@ class MoneyController extends Controller
     public function cetakpdf()
     {
         $id = Auth::user()->id;
-        $pemasukan = Pemasukan::All();
+        $transaksi = Transaksi::All();
         
-        $pdf = PDF::loadview('laporan_pdf',['pemasukan'=>$pemasukan]);
+        $pdf = PDF::loadview('laporan_pdf',['transaksi'=>$transaksi]);
         return $pdf->download('laporan-transaksi-pdf.pdf');
         return redirect('/dashboard');
         
