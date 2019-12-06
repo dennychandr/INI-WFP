@@ -32,8 +32,8 @@
               <div class="count">Rp.{{number_format($pengeluaran_hari_ini)}}</div>
             </div>
           </div>
-             <a class="btn btn-primary mb-3 mt-3" href="{{url('/transaksi/cetakpdf')}}">Cetak Laporan format PDF</a>
-               <a class="btn btn-success mb-3 mt-3" href="{{url('/transaksi/cetakexcel')}}">Cetak Laporan format Excel</a>
+             <a class="btn btn-primary mb-3 mt-3" href="{{url('/transaksi/cetakpdf')}}">Cetak Laporan Format PDF</a>
+               {{--<a class="btn btn-success mb-3 mt-3" href="{{url('/transaksi/cetakexcel')}}">Cetak Laporan format Excel</a> --}}
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#pemasukanmodal">
               Tambah Pemasukan
