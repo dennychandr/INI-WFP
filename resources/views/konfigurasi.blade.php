@@ -70,10 +70,7 @@
 
 
 
-            <form action="{{url('/konfigurasi/deletekategori/'.$kp->id)}}" method="post">
-              {{ csrf_field() }}
-              <button class="btn btn-danger" style="color: white">Delete</button>
-            </form>
+              <button class="btn btn-danger delete" style="color: white" data-id="{{$kp->id}}">Delete</button>
 
           </td>
         </tr>
@@ -173,10 +170,7 @@
 
 
 
-            <form action="{{url('/konfigurasi/deletekategori/'.$kp->id)}}" method="post">
-              {{ csrf_field() }}
-              <button class="btn btn-danger" style="color: white">Delete</button>
-            </form>
+              <button class="btn btn-danger delete" style="color: white" data-id="{{$kp->id}}">Delete</button>
             
 
           </td>
@@ -290,6 +284,39 @@
 @endsection
 
 @section('js')
+
+
+<script>
+  $(".delete").click(function(){
+
+    var id = $(this).data("id");
+
+    var token = '{{csrf_token()}}';
+
+    var datarow = $(this).parent().parent().parent();
+
+
+    $.ajax({
+    url: '{{url("/konfigurasi/deletekategori/")}}/' + id,
+    type: 'POST',
+    data:{
+      "id" :  id,
+      "_token": token,
+    },
+    success: function(result) {
+        // Do something with the result
+        // window.location = '{{url("/pages")}}'
+        datarow.fadeOut("slow");
+    }
+});
+}); 
+
+
+
+
+
+
+</script>
 
 <script>
 

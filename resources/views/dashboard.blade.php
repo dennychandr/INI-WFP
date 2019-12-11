@@ -169,27 +169,21 @@
 <div>
     <div class="col-md-12">
         <h3 class="display-5 mt-2">Lihat berdasarkan</h3>
-        <form method="POST" enctype="multipart/form-data" action="{{url('dashboard/filter')}}">
+
+        <form action="{{url('dashboard/filter')}}" method="POST">
         {{ csrf_field() }}
-        Bulan : <select name="bulan" >
-                            <option selected value="1" >Januari</option>
-                            <option value="2" >Februari</option>
-                            <option value="3" >Maret</option>
-                            <option value="4" >April</option>
-                            <option value="5" >Mei</option>
-                            <option value="6" >Juni</option>
-                            <option value="7" >Juli</option>
-                            <option value="8" >Agustus</option>
-                            <option value="9" >September</option>
-                            <option value="10" >Oktober</option>
-                            <option value="11" >November</option>
-                            <option value="12" >Desember</option>
-                        </select>
-                        Tahun : <input type="text" size="4" maxlength="4" value="2019" name="tahun">
-         <br> <br>
-                        Filter bulan & tahun &nbsp;<button type="submit" value="terapkan_bln_thn" name="terapkan">Terapkan</button>
-                        <br><br>
-                        Filter tahun saja &nbsp;<button type="submit" value="terapkan_thn" name="terapkan">Terapkan</button>
+    <div class="col-md-6">
+      <label>Tanggal Awal</label>
+      <input type="date" name="start_date" class="form-control">
+    </div>
+    <div class="col-md-6">
+       <label>Tanggal Akhir</label>
+        <input type="date" name="end_date" class="form-control">
+    </div>      
+    <input type="submit" name="" class="form-control btn btn-primary mt-3" value="Terapkan">
+      </form>
+
+
          <br> <br>
 
          

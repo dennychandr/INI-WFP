@@ -44,6 +44,8 @@ class HomeController extends Controller
                 $count = count($arr_sub_pem);
                $arr_sub_pem[$count][0] = $subkatee[$j]->nama;
                $arr_sub_pem[$count][1] = $kategoripemasukan[$i]->nama;
+                $arr_sub_pem[$count][2] = $subkatee[$j]->id;
+
             }            
         }
 
@@ -58,6 +60,7 @@ class HomeController extends Controller
                 $count = count($arr_sub_peng);
                $arr_sub_peng[$count][0] = $subkate[$j]->nama;
                $arr_sub_peng[$count][1] = $kategoripengeluaran[$i]->nama;
+               $arr_sub_peng[$count][2] = $subkate[$j]->id;
             }            
         }
 
@@ -74,75 +77,16 @@ class HomeController extends Controller
         ->where('jenis_transaksi', '=' , 'pengeluaran')
         ->sum('nominal');
 
-        $bln;
-        if($request->get('bulan') == 1)
-        {
-            $bln = 'Januari';
-        }
-        else if($request->get('bulan') == 2)
-        {
-            $bln = 'Februari';
-        }
-        else if($request->get('bulan') == 3)
-        {
-            $bln = 'Maret';
-        }
-        else if($request->get('bulan') == 4)
-        {
-            $bln = 'April';
-        }
-        else if($request->get('bulan') == 5)
-        {
-            $bln = 'Mei';
-        }
-        else if($request->get('bulan') == 6)
-        {
-            $bln = 'Juni';
-        }
-        else if($request->get('bulan') == 7)
-        {
-            $bln = 'Juli';
-        }
-        else if($request->get('bulan') == 8)
-        {
-            $bln = 'Agustus';
-        }
-        else if($request->get('bulan') == 9)
-        {
-            $bln = 'September';
-        }
-        else if($request->get('bulan') == 10)
-        {
-            $bln = 'Oktober';
-        }
-        else if($request->get('bulan') == 11)
-        {
-            $bln = 'November';
-        }
-        else if($request->get('bulan') == 12)
-        {
-            $bln = 'Desember';
-        }
+        $tglAwal = date("Y-m-d",strtotime("$request->start_date"));
+        $tglAkhir = date("Y-m-d",strtotime("$request->end_date"));
 
 
-        if($request->get('terapkan') == 'terapkan_bln_thn')
-        {
             $transaksi = Transaksi::where('user_id',$id)
-            ->whereMonth('created_at',$request->get('bulan'))
-            ->whereYear('created_at',$request->get('tahun'))
+            ->whereBetween('created_at',[date("Y-m-d",strtotime($request->start_date)),date("Y-m-d", strtotime($request->end_date) - strtotime("now") + strtotime("+1 day"))])
             ->orderBy('created_at','DESC')
             ->get();
-            $string = 'Daftar Transaksi Bulan ' . $bln . ' Tahun ' . $request->get('tahun') . ' :';
-        }
-        else if ($request->get('terapkan') == 'terapkan_thn')
-        {
-            $transaksi = Transaksi::where('user_id',$id)
-            ->whereYear('created_at',$request->get('tahun'))
-            ->orderBy('created_at','DESC')
-            ->get();
-            $string = 'Daftar Transaksi Tahun ' . $request->get('tahun') . ' :';
-        }
-
+            $string = 'Daftar Transaksi ' . $tglAwal . ' - ' . $tglAkhir . ' :';
+// dd($transaksi);
          $totalcount = $transaksi->count();
 
              $page = $request->input('page') ?:1;
